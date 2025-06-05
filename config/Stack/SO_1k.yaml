@@ -1,0 +1,74 @@
+data: 
+  data: Stack
+  dir: './data/Stack'
+  batch_size: 8
+  test_split: 0.15
+  max_node_num: 1100
+  max_feat_num: 30
+  spec_dim: 400
+  init: ones
+  file1: 'G0'
+  file2: 'G1'
+  
+
+sde:
+  x: 
+    type: VP
+    beta_min: 0.1  # Lower minimum beta to capture finer details
+    beta_max: 1.0   # Keep the maximum to capture larger-scale structures
+    num_scales: 1000  # Increase the number of scales for better granularity
+  adj: 
+    type: VP
+    beta_min: 0.1  # Same lower minimum beta for adjacency matrix
+    beta_max: 1.0   # Keep maximum beta for broader range
+    num_scales: 2000  # Match the number of scales with node features
+  u:
+    type: VP
+    beta_min: 0.05  # Consistent beta range for uniformity
+    beta_max: 1.0
+    num_scales: 2000
+
+model:
+  x: ScoreNetworkX
+  adj: ScoreNetworkA_eigen
+  u: ScoreNetworkU
+  conv: GCN
+  num_heads: 4  # Increase to handle more complex interactions
+  depth: 4  # Increase depth for capturing more complex structures
+  adim: 32  # Increase attention dimension for better feature representation
+  nhid: 32  # Increase hidden layer size
+  num_layers: 10  # Increase number of layers for deeper feature extraction
+  num_linears: 3  # Increase linear layers to process higher dimensional data
+  c_init: 2  # Increase initial channels for better initial feature extraction
+  c_hid: 8  # Increase hidden channels for better intermediate representations
+  c_final: 4  # Increase final channels for better final feature representations
+
+
+train:
+  name: test
+  num_epochs: 3000
+  save_interval: 20
+  print_interval: 20
+  reduce_mean: False
+  lr: 0.001  # Lower initial learning rate for stability
+  lr_schedule: True
+  ema: 0.999
+  weight_decay: 0.0005  # Increase weight decay to prevent overfitting
+  grad_norm: 1.0
+  lr_decay: 0.995  # Slightly faster decay to stabilize training
+  eps: 1.0e-6  # Adjust epsilon for numerical stability
+
+sampler:
+  predictor: Euler
+  corrector: Langevin
+  snr: 0.1
+  scale_eps: 0.7
+  n_steps: 1
+
+sample:
+  use_ema: True
+  noise_removal: True
+  probability_flow: False
+  eps: 1.0e-4
+  seed: 13
+  

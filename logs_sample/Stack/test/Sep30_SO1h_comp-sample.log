@@ -1,0 +1,27 @@
+Sep30_SO1h_comp-sample
+----------------------------------------------------------------------------------------------------
+[Stack]   init=ones (20)   seed=42   batch_size=64 spectral_dim=60
+File1: sampled_1h/motif/G0_motT  File1: sampled_1h/motif/G1_motT
+----------------------------------------------------------------------------------------------------
+lr=0.001 schedule=True ema=0.999 epochs=2000 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,4)   : depth=3 adim=32 nhid=32 layers=8 linears=2 c=(2 8 4)
+(x:VP)=(0.10, 1.00) N=1000 (adj:VP)=(0.10, 1.00) N=2000
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 13
+Round 0 : 3.51s
+Round 1 : 1.81s
+Round 2 : 1.84s
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 13
+Round 0 : 2.74s
+Round 1 : 1.76s
+Round 2 : 1.76s
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 13
+Round 0 : 3.25s
+Round 1 : 2.25s
+Round 2 : 2.25s
