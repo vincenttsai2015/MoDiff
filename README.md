@@ -23,6 +23,7 @@ CUDA_VISIBLE_DEVICES=${gpu_ids} python main.py --type train_comp --scale ${scale
 for example,
 ```bash
 CUDA_VISIBLE_DEVICES=0 python main.py --type train_comp -scale 1h --config_folder Stack --config_prefix SO
+python main.py --type train_comp  #Default settings for a quick start
 ```
 
 **Evaluation model**
@@ -34,7 +35,8 @@ CUDA_VISIBLE_DEVICES=${gpu_ids} python main.py --type eval_comp --scale ${scale}
 
 for example,
 ```bash
-CUDA_VISIBLE_DEVICES=0 python main.py --type train_comp -scale 1h --config_folder Stack --config_prefix SO --ckpt_name Sep30_SO1h_comp
+CUDA_VISIBLE_DEVICES=0 python main.py --type eval_comp -scale 1h --config_folder Stack --config_prefix SO --ckpt_name Sep30_SO1h_comp
+python main.py --type eval_comp  #Default settings for a quick start
 ```
 
 We provide trained models on StackOverflow for evaluation.
