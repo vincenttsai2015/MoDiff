@@ -2,7 +2,7 @@
 Code for the paper MoDiff-Graph Generation with Motif-Aware Diffusion Model (SIGKDD 2025).
 
 ## Dependencies
-Please use the following command to install the requirements:
+GSDM is built in Python 3.7.12 and Pytorch 1.10.1. Please use the following command to install the requirements:
 ```bash
 pip install -r requirements.txt
 ```
@@ -47,3 +47,12 @@ We are also developing a simple module to automatically predict the target densi
 ## Citation
 
 If you found the provided code with our paper useful in your work, we kindly request that you cite our work.
+
+## Generation Application
+If you're from a non-computer science background and find it challenging to generate usable graph data with this project, feel free to reach out to us through email.
+
+This project (MoDiff) is primarily designed for generating directed graphs like social networks. If you're working with undirected graphs (e.g., molecular structures in biology), you may find this related work from CMU is more suitable:
+Fast Graph Generation via Spectral Diffusion (IEEE TPAMI 2023).
+https://github.com/ltz0120/Fast_Graph_Generation_via_Spectral_Diffusion
+
+We’re also always interested in exploring interdisciplinary applications and welcome collaboration opportunities.
