@@ -51,7 +51,7 @@ If you found the provided code with our paper useful in your work, we kindly req
 ## Generation Application
 If you're from a non-computer science background and find it challenging to generate usable graph data with this project, feel free to reach out to us through email.
 
-This project (MoDiff) is primarily designed for generating directed graphs like social networks. If you're working with undirected graphs (e.g., molecular structures in biology), you may find this related work from CMU is more suitable:
+This project (MoDiff) is primarily designed for generating directed graphs like social networks. If you're working with undirected graphs (e.g., molecular structures in biology), you may find this related work from NTU is more suitable:
 Fast Graph Generation via Spectral Diffusion (IEEE TPAMI 2023).
 https://github.com/ltz0120/Fast_Graph_Generation_via_Spectral_Diffusion
 
