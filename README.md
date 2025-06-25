@@ -47,6 +47,10 @@ We are also developing a simple module to automatically predict the target densi
 ## Citation
 
 If you found the provided code with our paper useful in your work, we kindly request that you cite our work.
+'''
+ACMReference Format:
+Yuwei Xu and Chenhao Ma. 2025. MoDiff- Graph Generation with Motif Aware Diffusion Model. In Proceedings of the 31st ACM SIGKDD Conference on Knowledge Discovery and Data Mining V.2 (KDD ’25), August 3–7, 2025, Toronto, ON, Canada. ACM, New York, NY, USA, 12 pages. https://doi.org/10.1145/3711896.3737053
+ '''
 
 ## Generation Application
 If you're from a non-computer science background and find it challenging to generate usable graph data with this project, feel free to reach out to us through email.
