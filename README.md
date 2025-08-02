@@ -2,7 +2,7 @@
 Code for the paper MoDiff-Graph Generation with Motif-Aware Diffusion Model (SIGKDD 2025).
 
 ## Dependencies
-GSDM is built in Python 3.7.12 and Pytorch 1.10.1. Please use the following command to install the requirements:
+MoDiff is built in Python 3.7.12 and Pytorch 1.10.1. Please use the following command to install the requirements:
 ```bash
 pip install -r requirements.txt
 ```
