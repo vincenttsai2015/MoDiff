@@ -11,8 +11,8 @@ def main(parsed_args):
     pynvml.nvmlInit()
     deviceCount = pynvml.nvmlDeviceGetCount()
     ts = time.strftime('%b%d_%H%M', time.localtime())
-
     args = Parser().parse()
+    print(f'args: {args}')
 
     config_file = f"{parsed_args.config_folder}/{parsed_args.config_prefix}_{parsed_args.scale}"
     config = get_config(config_file, args.seed)
@@ -43,5 +43,5 @@ if __name__ == '__main__':
     parsed_args.add_argument('--config_prefix',type=str, default="SO")  #consistent with folder, always be abbreviation
     parsed_args.add_argument('--ckpt_name',type=str,default="Sep30_SO1h_comp",help="Note that ckpt should be consistent with config")
     parsed_args, _ = parsed_args.parse_known_args()
-
+    print(f'parsed_args: {parsed_args}')
     main(parsed_args)
