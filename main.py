@@ -1,7 +1,7 @@
 import torch
 import argparse
 import time
-from parsers.parser import Parser
+from parsers.parser import GSDM_Parser
 from parsers.config import get_config
 from trainer import Trainer_G_DT_comp as Trainer
 from sampler import Sampler_G_DiT as Sampler
@@ -11,13 +11,13 @@ def main(parsed_args):
     pynvml.nvmlInit()
     deviceCount = pynvml.nvmlDeviceGetCount()
     ts = time.strftime('%b%d_%H%M', time.localtime())
-    args = Parser().parse()
-    print(f'args: {args}')
+    gsdm_args = GSDM_Parser().parse()
+    print(f'gsdm_args: {gsdm_args}')
 
     config_file = f"{parsed_args.config_folder}/{parsed_args.config_prefix}_{parsed_args.scale}"
-    config = get_config(config_file, args.seed)
+    config = get_config(config_file, gsdm_args.seed)
     config.scale = parsed_args.scale
-    config.type = args.beta_type
+    config.type = gsdm_args.beta_type
 
     # -------- Train --------
     if parsed_args.type == 'train_comp':

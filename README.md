@@ -1,10 +1,13 @@
 # MoDiff - Graph Generation with Motif-Aware Diffusion Model
-Code for the paper MoDiff-Graph Generation with Motif-Aware Diffusion Model (SIGKDD 2025).
+Code for the paper MoDiff-Graph Generation with Motif-Aware Diffusion Model (SIGKDD 2025) forked from [this repo](https://github.com/Yuwe1XU/MoDiff).
 
 ## Dependencies
-MoDiff is built in Python 3.7.12 and Pytorch 1.10.1. Please use the following command to install the requirements:
+The environment is built in Python 3.12 and Pytorch 2.8 (with CUDA 12.9). 
+```conda create --name MoDiff python==3.12```
+```(python -m) pip install torch==2.8.0 torchvision==0.23.0 torchaudio==2.8.0 --index-url https://download.pytorch.org/whl/cu129```
+Please use the following command to install the rest required packages:
 ```bash
-pip install -r requirements.txt
+(python -m) pip install -r requirements.txt
 ```
 
 ## Running Experiments
