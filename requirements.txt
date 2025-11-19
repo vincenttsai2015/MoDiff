@@ -2,7 +2,7 @@ easydict
 eden_kernel
 matplotlib
 networkx
-numpy
+numpy==1.26.0
 nvidia_ml_py3
 pandas
 pyemd
