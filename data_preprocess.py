@@ -255,12 +255,17 @@ def save_single_split(graph_list, file_path):
 
 def print_statistics(graph_list, name="Graph List"):
     """
-    Print statistics
+    Print statistics (Updated with Max Nodes)
     """
     if not graph_list:
         return
     
-    avg_nodes = np.mean([g.number_of_nodes() for g in graph_list])
+    # Calculate node counts once
+    node_counts = [g.number_of_nodes() for g in graph_list]
+
+    avg_nodes = np.mean(node_counts)
+    max_nodes = np.max(node_counts) # <--- New Logic: Get Max Nodes
+
     avg_edges = np.mean([g.number_of_edges() for g in graph_list])
     avg_degree = np.mean([2 * g.number_of_edges() / g.number_of_nodes()
                           if g.number_of_nodes() > 0 else 0
@@ -270,6 +275,7 @@ def print_statistics(graph_list, name="Graph List"):
     print(f"\n[Statistics] {name}:")
     print(f"  Count: {len(graph_list)}")
     print(f"  Avg nodes: {avg_nodes:.1f}")
+    print(f"  Max nodes: {max_nodes}") # <--- Print Max Nodes
     print(f"  Avg edges: {avg_edges:.1f}")
     print(f"  Avg degree: {avg_degree:.2f}")
     print(f"  Avg density: {avg_density:.6f}")
@@ -308,6 +314,14 @@ def process_dataset_from_csv(csv_path, output_dir, num_windows=10, dataset_name=
         print("\n[WARNING] No graphs generated")
         return None
 
+    # --- Save the FULL dataset before splitting (No Suffix) ---
+    os.makedirs(output_dir, exist_ok=True)
+    full_path = os.path.join(output_dir, f"{dataset_name}_{num_windows}bins_modiff.pkl")
+    print(f"\n[INFO] Saving FULL dataset (before split)...")
+    save_single_split(graph_list, full_path)
+    print_statistics(graph_list, "Full Dataset (All Windows)")
+    # -------------------------------------------------------------
+
     # --- Splitting Logic (80% Train, 10% Val, 10% Test) ---
     total_graphs = len(graph_list)
     val_size = int(total_graphs * 0.1)
@@ -318,26 +332,31 @@ def process_dataset_from_csv(csv_path, output_dir, num_windows=10, dataset_name=
     val_graphs = graph_list[train_size:train_size + val_size]
     test_graphs = graph_list[train_size + val_size:]
 
-    # --- Save Files ---
-    os.makedirs(output_dir, exist_ok=True)
+    # --- Save Split Files ---
     
-    # 1. Train set (suffix R)
+    # 1. Train set
     train_path = os.path.join(output_dir, f"{dataset_name}_{num_windows}bins_modiffR.pkl")
     save_single_split(train_graphs, train_path)
+    # Extra save: R.pkl
+    save_single_split(train_graphs, os.path.join(output_dir, "R.pkl"))
     
-    # 2. Validation set (suffix V)
+    # 2. Validation set
     val_path = os.path.join(output_dir, f"{dataset_name}_{num_windows}bins_modiffV.pkl")
     save_single_split(val_graphs, val_path)
+    # Extra save: V.pkl
+    save_single_split(val_graphs, os.path.join(output_dir, "V.pkl"))
     
-    # 3. Test set (suffix T)
+    # 3. Test set
     test_path = os.path.join(output_dir, f"{dataset_name}_{num_windows}bins_modiffT.pkl")
     save_single_split(test_graphs, test_path)
+    # Extra save: T.pkl
+    save_single_split(test_graphs, os.path.join(output_dir, "T.pkl"))
 
     print(f"\n{'='*60}")
     print(f"[SUCCESS] Data processing and splitting complete.")
-    print_statistics(train_graphs, "Train Set (R)")
-    print_statistics(val_graphs, "Validation Set (V)")
-    print_statistics(test_graphs, "Test Set (T)")
+    print_statistics(train_graphs, "Train Set (R / R.pkl)")
+    print_statistics(val_graphs, "Validation Set (V / V.pkl)")
+    print_statistics(test_graphs, "Test Set (T / T.pkl)")
     print(f"{'='*60}")
     
     return graph_list
