@@ -2,6 +2,8 @@ import concurrent.futures
 from functools import partial
 
 import numpy as np
+if not hasattr(np, 'float'):
+    np.float = float
 import pyemd
 from scipy.linalg import toeplitz
 
