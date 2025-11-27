@@ -570,6 +570,9 @@ def graphs_to_adjWnodes_4Comp(graph_lists, max_node_num):
         for graph_list, type in zip(graph_lists, transform_type):
             g = graph_list[i]
             node_list = nodes_lists[i]
+            for node in node_list:
+                if not g.has_node(node):
+                    g.add_node(node)
             adj = nx.to_numpy_array(g, nodelist=node_list)
 
             if(adj.shape[0] > len(node_list)):
@@ -583,8 +586,16 @@ def graphs_to_adjWnodes_4Comp(graph_lists, max_node_num):
         hermitian_lists.append(combined_H)
 
     del graph_lists
-
-    nodes_np = np.asarray(nodes_lists)
+    
+    # [Fix] Padding
+    max_len = max([len(x) for x in nodes_lists])
+    padded_nodes_lists = []
+    for nl in nodes_lists:
+        pad_len = max_len - len(nl)
+        padded_nodes_lists.append(list(nl) + [-1] * pad_len)
+    nodes_np = np.asarray(padded_nodes_lists)
+    
+    # nodes_np = np.asarray(nodes_lists)
 
     hermitian_tensor = torch.stack(hermitian_lists)
     del hermitian_lists, nodes_lists
