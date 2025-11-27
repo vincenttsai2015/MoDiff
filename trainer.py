@@ -15,8 +15,8 @@ class Trainer_G_DT_comp(object):
         super(Trainer_G_DT_comp, self).__init__()
 
         self.config = config
-        self.config.data.file1 = f'sampled_{config.scale}/motif/G0_mot'
-        self.config.data.file2 = f'sampled_{config.scale}/motif/G1_mot'
+        # self.config.data.file1 = f'sampled_{config.scale}/motif/G0_mot'
+        # self.config.data.file2 = f'sampled_{config.scale}/motif/G1_mot'
         print("self.config:",self.config)
         self.log_folder_name, self.log_dir, self.ckpt_dir = set_log(self.config)
 

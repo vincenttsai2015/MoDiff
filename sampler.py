@@ -60,7 +60,8 @@ class Sampler_G_DiT(object):
         load_seed(self.config.sample.seed)
         
         train_graph_lists, test_graph_lists = [], []
-        file_name_first = f'sampled_{self.config.scale}/motif/G0_mot'
+        # file_name_first = f'sampled_{self.config.scale}/motif/G0_mot'
+        file_name_first = ''
         for file_name_last in ['V','R','T']:
             self.configt.data.file1 = file_name_first + file_name_last
             train_graph_list, test_graph_list = load_data_TD_test(self.configt, get_graph_list=True)
@@ -107,5 +108,42 @@ class Sampler_G_DiT(object):
         kernels = {'degree':gaussian_emd,
                     'cluster':gaussian_emd,
                     'orbit':gaussian}
-        whole_mot_graph_list = load_graph_list(os.path.join(self.config.data.dir, file_name_first[:-6], 'G1_whole.pkl'))[:len(gen_graph_list)] 
+        whole_mot_graph_list = load_graph_list(os.path.join(self.config.data.dir, file_name_first[:-6], 'twitter_10000bins_modiff.pkl'))[:len(gen_graph_list)] 
         result_dict = eval_graph_list(whole_mot_graph_list, gen_graph_list, methods=methods, kernels=kernels)
+        
+        # Display Metric values and output images
+
+        # 1. Output MMD and KS values
+        # result_dict contains the MMD results for degree, cluster, and orbit
+        print("\n" + "="*40)
+        print(f"Evaluation Results (MMD) for {self.config.ckpt}:")
+        print(result_dict)
+        print("="*40 + "\n")
+
+        # If the logger is still active, it can also write to the log file
+        try:
+            logger.log(f"Final Metrics: {result_dict}") 
+        except:
+            pass
+
+        # 2. Plot and save images
+        # Set the directory name for saving files (usually using the dataset name, e.g., qm9)
+        save_folder_name = self.config.data.data 
+
+        # (A) Plot Ground Truth (Real data)
+        plot_graphs_list(
+            whole_mot_graph_list, 
+            title=f"{self.config.ckpt}_GroundTruth", 
+            save_dir=save_folder_name,
+            max_num=16  # Default to plot 16 images, can be adjusted
+        )
+
+        # (B) Plot Generated (Generated data)
+        plot_graphs_list(
+            gen_graph_list, 
+            title=f"{self.config.ckpt}_Generated", 
+            save_dir=save_folder_name,
+            max_num=16
+        )
+
+        print(f"Graphs saved to directory: ./samples/fig/{save_folder_name}/")
