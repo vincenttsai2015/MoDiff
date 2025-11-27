@@ -1,0 +1,12 @@
+Nov27_1100_comp-sample
+----------------------------------------------------------------------------------------------------
+[Twitter]   init=ones (20)   seed=42   batch_size=64 spectral_dim=300
+File1: twitter_204800bins_modiffT  File1: twitter_204800bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.002 schedule=True ema=0.999 epochs=20 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,4)   : depth=2 adim=32 nhid=32 layers=6 linears=2 c=(2 8 4)
+(x:VP)=(0.10, 20.00) N=1000 (adj:VP)=(0.10, 20.00) N=1000
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42

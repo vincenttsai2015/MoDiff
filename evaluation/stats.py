@@ -8,7 +8,7 @@ from tqdm import trange
 from scipy.linalg import eigvalsh
 import networkx as nx
 import numpy as np
-
+from scipy.stats import ks_2samp
 from evaluation.mmd import process_tensor, compute_mmd, compute_mmd_WOnorm, gaussian, gaussian_emd, compute_nspdk_mmd
 from utils.graph_utils import adjs_to_graphs
 
@@ -212,8 +212,6 @@ def orca(graph):
 
     return node_orbit_counts
 
-
-
 def orbit_stats_all(graph_ref_list, graph_pred_list, KERNEL=gaussian):
     # print("in orbit_stats_all")
     total_counts_ref = []
@@ -315,12 +313,133 @@ def nspdk_stats(graph_ref_list, graph_pred_list):
         print('Time computing degree mmd: ', elapsed)
     return mmd_dist
 
+# -------- Node Behavior Metric (2D KS using Q1 and Q3 of degree) -------- #
+def extract_q1_q3_points(graph_seq):
+    q1_q3_points = []
+    for g in graph_seq:
+        degrees = np.array([d for _, d in g.degree()])
+        if len(degrees) < 4:
+            continue
+        q1 = np.percentile(degrees, 25)
+        q3 = np.percentile(degrees, 75)
+        q1_q3_points.append([q1, q3])
+    return np.array(q1_q3_points)
+
+def compute_2d_ks(test_points, gen_points):
+    ks_x = ks_2samp(test_points[:, 0], gen_points[:, 0]).statistic
+    ks_y = ks_2samp(test_points[:, 1], gen_points[:, 1]).statistic
+    return (ks_x + ks_y) / 2
+
+def run_node_behavior_eval(test_graphs, gen_graphs):
+    test_points = extract_q1_q3_points(test_graphs)
+    gen_points = extract_q1_q3_points(gen_graphs)
+    
+    ks_score = compute_2d_ks(test_points, gen_points)
+    return ks_score
+
+# -------- Dynamical Similarity via Random Walk Coverage -------- #
+def random_walk_coverage(graph_seq, walk_times=10):
+    T = len(graph_seq)
+    cover_counts = []
+    for _ in range(walk_times):
+        visited = set()
+        g0 = graph_seq[0]
+        if len(g0.nodes) == 0:
+            continue
+        current = random.choice(list(g0.nodes))
+        visited.add(current)
+        for t in range(1, T):
+            g = graph_seq[t]
+            if current not in g:
+                break
+            neighbors = list(g.neighbors(current))
+            if neighbors:
+                current = random.choice(neighbors)
+            visited.add(current)
+        cover_counts.append(len(visited))
+    return cover_counts
+
+def run_dynamic_sim_eval(test_graphs, gen_graphs):
+    test_cover = random_walk_coverage(test_graphs)
+    gen_cover = random_walk_coverage(gen_graphs)
+
+    return ks_2samp(test_cover, gen_cover).statistic
+
+# -------- PageRank Behavior Metric (2D KS using Q1 and Q3 of degree) -------- #
+def extract_pagerank_q1_q3_points(graph_seq):
+    q1_q3_points = []
+    for g in graph_seq:
+        pagerank_scores = np.array([d for _, d in nx.pagerank(g).items()])
+        if len(pagerank_scores) < 4:
+            continue
+        q1 = np.percentile(pagerank_scores, 25)
+        q3 = np.percentile(pagerank_scores, 75)
+        q1_q3_points.append([q1, q3])
+    return np.array(q1_q3_points)
+
+def run_pagerank_eval(test_graph_seq, gen_graph_seq):
+    test_points = extract_pagerank_q1_q3_points(test_graph_seq)
+    gen_points = extract_pagerank_q1_q3_points(gen_graph_seq)
+    ks = compute_2d_ks(test_points, gen_points)
+    return ks
+
+# -------- Node Degree Behavior Metric (2D KS using Q1 and Q3 of degree) -------- #
+def extract_degree_q1_q3_points(graph_seq):
+    q1_q3_points = []
+    for g in graph_seq:
+        degrees = np.array([d for _, d in g.degree()])
+        if len(degrees) < 4:
+            continue
+        q1 = np.percentile(degrees, 25)
+        q3 = np.percentile(degrees, 75)
+        q1_q3_points.append([q1, q3])
+    return np.array(q1_q3_points)
+
+def run_node_degree_behavior_eval(test_graph_seq, gen_graph_seq):
+    test_points = extract_degree_q1_q3_points(test_graph_seq)
+    gen_points = extract_degree_q1_q3_points(gen_graph_seq)
+    ks = compute_2d_ks(test_points, gen_points)
+    return ks
+
+def extract_centrality_q1_q3_points(graph_seq, type):
+    q1_q3_points = []
+    for g in graph_seq:
+        if type == 'degree':
+            centralities = np.array([d for _, d in nx.degree_centrality(g).items()])
+        elif type == 'betweenness':
+            centralities = np.array([d for _, d in nx.betweenness_centrality(g).items()])
+        elif type == 'closeness':
+            centralities = np.array([d for _, d in nx.closeness_centrality(g).items()])
+        elif type == 'eigenvector':
+            centralities = np.array([d for _, d in nx.eigenvector_centrality(g).items()])
+        elif type == 'information':
+            centralities = np.array([d for _, d in nx.information_centrality(g).items()])
+        
+        if len(centralities) < 4:
+            continue
+        q1 = np.percentile(centralities, 25)
+        q3 = np.percentile(centralities, 75)
+        q1_q3_points.append([q1, q3])
+    return np.array(q1_q3_points)
+
+def run_centrality_behavior_eval(test_graph_seq, gen_graph_seq, type):
+    test_points = extract_centrality_q1_q3_points(test_graph_seq, type=type)
+    gen_points = extract_centrality_q1_q3_points(gen_graph_seq, type=type)
+    ks = compute_2d_ks(test_points, gen_points)
+    return ks
 
 METHOD_NAME_TO_FUNC = {
     'degree': degree_stats,
     'cluster': clustering_stats,
     'orbit': orbit_stats_4DiG,
-    # 'spectral': spectral_stats,
+    'spectral': spectral_stats,
+    'node_behavior_ks': run_node_behavior_eval,
+    'random_walk_ks': run_dynamic_sim_eval,
+    'pagerank_ks': run_pagerank_eval,
+    'node_degree_behavior_ks': run_node_degree_behavior_eval,
+    'degree_centrality_behavior_ks': run_centrality_behavior_eval,
+    'betweenness_centrality_behavior_ks': run_centrality_behavior_eval,
+    'closeness_centrality_behavior_ks': run_centrality_behavior_eval,
     'nspdk': nspdk_stats
 }
 
@@ -335,11 +454,20 @@ def eval_torch_batch(ref_batch, pred_batch, methods=None):
 # -------- Evaluate generated generic graphs --------
 def eval_graph_list(graph_ref_list, graph_pred_list, methods=None, kernels=None):
     if methods is None:
-        methods = ['degree', 'cluster', 'orbit'] #
+        methods = ['degree', 'cluster', 'spectral', 'node_behavior_ks', 'random_walk_ks','pagerank_ks','node_degree_behavior_ks',
+                   'degree_centrality_behavior_ks', 'betweenness_centrality_behavior_ks', 'closeness_centrality_behavior_ks'] #
     results = {}
     for method in methods:
         if method == 'nspdk':
             results[method] = METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list)
+        elif method in ['node_behavior_ks', 'random_walk_ks', 'pagerank_ks', 'node_degree_behavior_ks']:
+            results[method] = round(METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list))
+        elif method == 'degree_centrality_behavior_ks':
+            results[method] = round(METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, type='degree'))
+        elif method == 'betweenness_centrality_behavior_ks':
+            results[method] = round(METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, type='betweenness'))
+        elif method == 'closeness_centrality_behavior_ks':
+            results[method] = round(METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, type='closeness'))
         else:
             results[method] = round(METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, kernels[method]), 6)
         print('\033[91m' + f'{method:9s}' + '\033[0m' + ' : ' + '\033[94m' +  f'{results[method]:.6f}' + '\033[0m')

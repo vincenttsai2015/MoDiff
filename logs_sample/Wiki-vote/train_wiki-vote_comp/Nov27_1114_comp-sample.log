@@ -1,0 +1,115 @@
+Nov27_1114_comp-sample
+----------------------------------------------------------------------------------------------------
+[Wiki-vote]   init=ones (20)   seed=42   batch_size=64 spectral_dim=300
+File1: wiki-vote_6400bins_modiffT  File1: wiki-vote_6400bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.002 schedule=True ema=0.999 epochs=20 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,4)   : depth=2 adim=32 nhid=32 layers=6 linears=2 c=(2 8 4)
+(x:VP)=(0.10, 20.00) N=1000 (adj:VP)=(0.10, 20.00) N=1000
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 53.09s
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 54.97s
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 52.07s
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 54.62s
+Round 0 : 55.61s
+Final Metrics: {'degree': 0.674955, 'cluster': 0.269755, 'orbit': 0.000937}
+Final Metrics: {'degree': 0.792949, 'cluster': 0.546951, 'orbit': 0.001311}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 48.35s
+Round 0 : 52.89s
+Final Metrics: {'degree': 0.674955, 'cluster': 0.269755, 'orbit': 0.000937}
+Final Metrics: {'degree': 0.792949, 'cluster': 0.546951, 'orbit': 0.001311}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 51.57s
+Round 0 : 52.44s
+Final Metrics: {'degree': 0.674955, 'cluster': 0.269755, 'spectral': 0.61356}
+Final Metrics: {'degree': 0.792949, 'cluster': 0.546951, 'spectral': 0.392085}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 49.51s
+Round 0 : 51.60s
+Final Metrics: {'degree': 0.792949, 'cluster': 0.546951, 'spectral': 0.392085, 'node_behavior_ks': 1, 'random_walk_ks': 0}
+Final Metrics: {'degree': 0.674955, 'cluster': 0.269755, 'spectral': 0.61356, 'node_behavior_ks': 0, 'random_walk_ks': 0}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 52.56s
+Round 0 : 52.65s
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 53.27s
+Round 0 : 54.04s
+Final Metrics: {'degree': 0.674955, 'cluster': 0.269755, 'spectral': 0.61356, 'node_behavior_ks': 0, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 0}
+Final Metrics: {'degree': 0.792949, 'cluster': 0.546951, 'spectral': 0.392085, 'node_behavior_ks': 1, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 1}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 49.10s
+Round 0 : 50.70s
+Final Metrics: {'degree': 0.674955, 'cluster': 0.269755, 'spectral': 0.61356, 'node_behavior_ks': 0, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 0, 'centrality_behavior_ks': 0}
+Final Metrics: {'degree': 0.792949, 'cluster': 0.546951, 'spectral': 0.392085, 'node_behavior_ks': 1, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 1, 'centrality_behavior_ks': 0}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 49.19s
+Round 0 : 50.60s
+Final Metrics: {'degree': 0.674955, 'cluster': 0.269755, 'spectral': 0.61356, 'node_behavior_ks': 0, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 0, 'degree_centrality_behavior_ks': 1, 'betweenness_centrality_behavior_ks': 0, 'closeness_centrality_behavior_ks': 0}
+Final Metrics: {'degree': 0.792949, 'cluster': 0.546951, 'spectral': 0.392085, 'node_behavior_ks': 1, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 1, 'degree_centrality_behavior_ks': 1, 'betweenness_centrality_behavior_ks': 0, 'closeness_centrality_behavior_ks': 0}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 51.36s
+Round 0 : 52.29s
+Final Metrics: {'degree': 0.674955, 'cluster': 0.269755, 'spectral': 0.61356, 'node_behavior_ks': 0, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 0, 'degree_centrality_behavior_ks': 1, 'betweenness_centrality_behavior_ks': 0, 'closeness_centrality_behavior_ks': 0}
+Final Metrics: {'degree': 0.792949, 'cluster': 0.546951, 'spectral': 0.392085, 'node_behavior_ks': 1, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 1, 'degree_centrality_behavior_ks': 1, 'betweenness_centrality_behavior_ks': 0, 'closeness_centrality_behavior_ks': 0}

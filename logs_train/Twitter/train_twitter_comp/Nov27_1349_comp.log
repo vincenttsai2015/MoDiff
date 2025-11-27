@@ -1,0 +1,29 @@
+Nov27_1349_comp
+----------------------------------------------------------------------------------------------------
+[Twitter]   init=ones (20)   seed=42   batch_size=64 spectral_dim=300
+File1: twitter_102400bins_modiffT  File1: twitter_102400bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.002 schedule=True ema=0.999 epochs=20 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,4)   : depth=2 adim=32 nhid=32 layers=6 linears=2 c=(2 8 4)
+(x:VP)=(0.10, 20.00) N=1000 (adj:VP)=(0.10, 20.00) N=1000
+----------------------------------------------------------------------------------------------------
+001 | 54.03s | test x: 8.360e+00 | test adj: 1.478e+02 | train x: 1.253e+01 | train adj: 1.485e+02 | 
+002 | 49.77s | test x: 8.224e+00 | test adj: 1.469e+02 | train x: 6.420e+00 | train adj: 1.477e+02 | 
+003 | 49.46s | test x: 6.890e+00 | test adj: 1.467e+02 | train x: 6.009e+00 | train adj: 1.478e+02 | 
+004 | 57.20s | test x: 6.857e+00 | test adj: 1.469e+02 | train x: 5.393e+00 | train adj: 1.480e+02 | 
+005 | 50.67s | test x: 5.723e+00 | test adj: 1.462e+02 | train x: 5.343e+00 | train adj: 1.481e+02 | 
+006 | 52.84s | test x: 5.503e+00 | test adj: 1.471e+02 | train x: 4.798e+00 | train adj: 1.478e+02 | 
+007 | 52.67s | test x: 5.407e+00 | test adj: 1.474e+02 | train x: 4.825e+00 | train adj: 1.477e+02 | 
+008 | 52.65s | test x: 5.545e+00 | test adj: 1.477e+02 | train x: 4.612e+00 | train adj: 1.479e+02 | 
+009 | 53.40s | test x: 4.845e+00 | test adj: 1.469e+02 | train x: 4.098e+00 | train adj: 1.479e+02 | 
+010 | 55.54s | test x: 4.946e+00 | test adj: 1.468e+02 | train x: 4.168e+00 | train adj: 1.478e+02 | 
+011 | 56.03s | test x: 4.984e+00 | test adj: 1.467e+02 | train x: 4.091e+00 | train adj: 1.476e+02 | 
+012 | 55.12s | test x: 4.967e+00 | test adj: 1.467e+02 | train x: 3.758e+00 | train adj: 1.476e+02 | 
+013 | 53.39s | test x: 4.400e+00 | test adj: 1.466e+02 | train x: 3.732e+00 | train adj: 1.478e+02 | 
+014 | 53.11s | test x: 5.064e+00 | test adj: 1.471e+02 | train x: 3.861e+00 | train adj: 1.475e+02 | 
+015 | 53.14s | test x: 4.710e+00 | test adj: 1.457e+02 | train x: 3.639e+00 | train adj: 1.476e+02 | 
+016 | 51.72s | test x: 3.816e+00 | test adj: 1.468e+02 | train x: 3.708e+00 | train adj: 1.476e+02 | 
+017 | 53.83s | test x: 5.356e+00 | test adj: 1.466e+02 | train x: 3.587e+00 | train adj: 1.477e+02 | 
+018 | 50.76s | test x: 5.121e+00 | test adj: 1.461e+02 | train x: 3.577e+00 | train adj: 1.476e+02 | 
+019 | 51.03s | test x: 4.602e+00 | test adj: 1.468e+02 | train x: 3.342e+00 | train adj: 1.475e+02 | 
+020 | 53.92s | test x: 4.447e+00 | test adj: 1.466e+02 | train x: 3.593e+00 | train adj: 1.476e+02 | 

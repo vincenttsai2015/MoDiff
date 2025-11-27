@@ -104,11 +104,12 @@ class Sampler_G_DiT(object):
         # save_graph_list(os.path.join(*['Sensity', self.config.data.data]) , f"{self.config.ckpt[:]}_{pre_dense}_{str('%.2f'%final_thres)[-2:]}", gen_graph_list)
         print("Evaluation By Compund Finish")
 
-        methods = ['degree','cluster','orbit']
+        methods = ['degree','cluster', 'spectral', 'node_behavior_ks', 'random_walk_ks','pagerank_ks','node_degree_behavior_ks',
+                   'degree_centrality_behavior_ks', 'betweenness_centrality_behavior_ks', 'closeness_centrality_behavior_ks']
         kernels = {'degree':gaussian_emd,
                     'cluster':gaussian_emd,
-                    'orbit':gaussian}
-        whole_mot_graph_list = load_graph_list(os.path.join(self.config.data.dir, file_name_first[:-6], 'twitter_10000bins_modiff.pkl'))[:len(gen_graph_list)] 
+                    'spectral':gaussian_emd}
+        whole_mot_graph_list = load_graph_list(os.path.join(self.config.data.dir, file_name_first[:-6], f'{self.config.data.file1}.pkl'))[:len(gen_graph_list)] 
         result_dict = eval_graph_list(whole_mot_graph_list, gen_graph_list, methods=methods, kernels=kernels)
         
         # Display Metric values and output images
