@@ -1,0 +1,72 @@
+data:
+  data: Twitter
+  dir: './data/twitter'  # .pkl file location
+  file1: twitter_204800bins_modiff
+  file2: twitter_204800bins_modiff
+  batch_size: 64
+  test_split: 0.1      # 10% for testing
+  max_node_num: 1100
+  max_feat_num: 20
+  spec_dim: 300
+  init: ones
+
+sde:
+  x:
+    type: VP
+    beta_min: 0.1
+    beta_max: 20.0
+    num_scales: 1000
+  adj:
+    type: VP
+    beta_min: 0.1
+    beta_max: 20.0
+    num_scales: 1000
+  u:
+    type: VP
+    beta_min: 0.1
+    beta_max: 20.0
+    num_scales: 1000
+
+model:
+  x: ScoreNetworkX
+  adj: ScoreNetworkA_eigen
+  u: ScoreNetworkU
+  conv: GCN
+  num_heads: 4
+  depth: 2
+  adim: 32
+  nhid: 32
+  num_layers: 6
+  num_linears: 2
+  c_init: 2
+  c_hid: 8
+  c_final: 4
+
+train:
+  name: train_twitter_comp
+  num_epochs: 20
+  save_interval: 50
+  print_interval: 50
+  reduce_mean: False
+  lr: 0.002
+  lr_schedule: True
+  ema: 0.999
+  weight_decay: 0.0001
+  grad_norm: 1.0
+  lr_decay: 0.999
+  eps: 1.0e-5
+
+sampler:
+  predictor: Euler
+  corrector: Langevin
+  snr: 0.1
+  scale_eps: 0.7
+  n_steps: 1
+
+sample:
+  use_ema: True
+  noise_removal: True
+  probability_flow: False
+  eps: 1.0e-4
+  seed: 42
+
