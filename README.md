@@ -17,6 +17,20 @@ The subgraphs for training are preprocessed with motif detection and stored in d
 We provide StackOverflow as an example. The 1h scale can be used directly, while the 5h and 1k scales need to be decompressed.
 More data could be found here. We are also working on merging them in one graph, and will update that later.
 
+**Incorporating Other Data**
+1. Preprocess csv (recommended)
+```bash
+python data_preprocess.py --dataset-path ~/MulDyDiff/data/{dataset_name}/raw/actions.csv --output-dir ./data/{dataset_name} --num-bins {num_bins} --dataset-name {dataset_name} 
+```
+* ```dataset_name=wiki-vote, twitter, superuser```
+* ```num_bins=25600 (wiki-vote), 204800 (twitter), 320000 (superuser)``` (suggested)
+* Example: ```python data_preprocess.py --dataset-path ~/MulDyDiff/data/wiki-vote/raw/actions.csv --output-dir ./data/wiki-vote --num-bins 25600 --dataset-name wiki-vote```
+
+2. Preprocess MulDyDiff processed data
+```bash
+python data_preprocess.py --from-muldydiff ~/MulDyDiff/data/{dataset_name}/processed/{pt_file_name}.pt --output-dir ./data/{dataset_name} --num-bins {num_bins} --dataset-name {dataset_name}
+```
+
 **Train model**
 
 ```bash
