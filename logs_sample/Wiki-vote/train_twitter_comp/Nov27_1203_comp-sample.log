@@ -1,0 +1,18 @@
+Nov27_1203_comp-sample
+----------------------------------------------------------------------------------------------------
+[Wiki-vote]   init=ones (20)   seed=42   batch_size=32 spectral_dim=250
+File1: wiki-vote_200bins_modiffT  File1: wiki-vote_200bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.002 schedule=True ema=0.999 epochs=200 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,4)   : depth=2 adim=32 nhid=32 layers=6 linears=2 c=(2 8 4)
+(x:VP)=(0.10, 20.00) N=1000 (adj:VP)=(0.10, 20.00) N=1000
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42

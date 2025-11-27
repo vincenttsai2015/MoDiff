@@ -1,1 +1,0 @@
-Decompress G0 and G1 and list the files in them just like in sampled_1h

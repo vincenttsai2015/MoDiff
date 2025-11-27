@@ -11,5 +11,8 @@
   "CollegeMsg1h": 2.9,
   "CollegeMsg5h": 4.8,
   "CollegeMsg1k": 3.5,
-  "Twitter10000": 1.7
+  "Twitter10000": 1.7,
+  "Wiki-vote1000": 3.5,
+  "Wiki-vote200": 5.6,
+  "Superuser10000": 2.6
 }

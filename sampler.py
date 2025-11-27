@@ -108,7 +108,7 @@ class Sampler_G_DiT(object):
         kernels = {'degree':gaussian_emd,
                     'cluster':gaussian_emd,
                     'orbit':gaussian}
-        whole_mot_graph_list = load_graph_list(os.path.join(self.config.data.dir, file_name_first[:-6], 'twitter_10000bins_modiff.pkl'))[:len(gen_graph_list)] 
+        whole_mot_graph_list = load_graph_list(os.path.join(self.config.data.dir, file_name_first[:-6], 'superuser_10000bins_modiff.pkl'))[:len(gen_graph_list)] 
         result_dict = eval_graph_list(whole_mot_graph_list, gen_graph_list, methods=methods, kernels=kernels)
         
         # Display Metric values and output images
