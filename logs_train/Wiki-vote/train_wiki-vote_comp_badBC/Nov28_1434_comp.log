@@ -1,0 +1,10 @@
+Nov28_1434_comp
+----------------------------------------------------------------------------------------------------
+[Wiki-vote]   init=ones (20)   seed=42   batch_size=64 spectral_dim=16
+File1: wiki-vote_25600bins_modiffT  File1: wiki-vote_25600bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.004 schedule=True ema=0.999 epochs=1 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,2)   : depth=1 adim=16 nhid=16 layers=3 linears=2 c=(1 4 2)
+(x:VP)=(0.10, 50.00) N=100 (adj:VP)=(0.10, 50.00) N=100
+----------------------------------------------------------------------------------------------------
+001 | 24.90s | test x: 1.602e+01 | test adj: 5.166e+00 | train x: 5.393e+01 | train adj: 6.618e+00 | 

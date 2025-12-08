@@ -1,0 +1,10 @@
+Dec02_1128_comp
+----------------------------------------------------------------------------------------------------
+[Twitter]   init=ones (20)   seed=42   batch_size=64 spectral_dim=64
+File1: twitter_51200bins_modiffT  File1: twitter_51200bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.008 schedule=True ema=0.999 epochs=1 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,2)   : depth=1 adim=8 nhid=8 layers=3 linears=2 c=(1 4 2)
+(x:VP)=(0.10, 50.00) N=200 (adj:VP)=(0.10, 50.00) N=200
+----------------------------------------------------------------------------------------------------
+001 | 30.15s | test x: 9.451e+00 | test adj: 2.739e+01 | train x: 1.978e+01 | train adj: 2.935e+01 | 

@@ -323,6 +323,7 @@ def extract_q1_q3_points(graph_seq):
         q1 = np.percentile(degrees, 25)
         q3 = np.percentile(degrees, 75)
         q1_q3_points.append([q1, q3])
+    # print("node behavior q1_q3_points:", q1_q3_points)
     return np.array(q1_q3_points)
 
 def compute_2d_ks(test_points, gen_points):
@@ -331,14 +332,17 @@ def compute_2d_ks(test_points, gen_points):
     return (ks_x + ks_y) / 2
 
 def run_node_behavior_eval(test_graphs, gen_graphs):
+    # print("run_node_behavior_eval")
     test_points = extract_q1_q3_points(test_graphs)
+    # print("test_points:", test_points)
     gen_points = extract_q1_q3_points(gen_graphs)
+    # print("gen_points:", gen_points)
     
     ks_score = compute_2d_ks(test_points, gen_points)
     return ks_score
 
 # -------- Dynamical Similarity via Random Walk Coverage -------- #
-def random_walk_coverage(graph_seq, walk_times=10):
+def random_walk_coverage(graph_seq, walk_times=20):
     T = len(graph_seq)
     cover_counts = []
     for _ in range(walk_times):
@@ -357,11 +361,15 @@ def random_walk_coverage(graph_seq, walk_times=10):
                 current = random.choice(neighbors)
             visited.add(current)
         cover_counts.append(len(visited))
+    # print("random_walk_coverage cover_counts:", cover_counts)
     return cover_counts
 
 def run_dynamic_sim_eval(test_graphs, gen_graphs):
+    # print("run_dynamic_sim_eval")
     test_cover = random_walk_coverage(test_graphs)
+    # print("test_cover:", test_cover)
     gen_cover = random_walk_coverage(gen_graphs)
+    # print("gen_cover:", gen_cover)
 
     return ks_2samp(test_cover, gen_cover).statistic
 
@@ -375,11 +383,15 @@ def extract_pagerank_q1_q3_points(graph_seq):
         q1 = np.percentile(pagerank_scores, 25)
         q3 = np.percentile(pagerank_scores, 75)
         q1_q3_points.append([q1, q3])
+    # print("pagerank q1_q3_points:", q1_q3_points)
     return np.array(q1_q3_points)
 
 def run_pagerank_eval(test_graph_seq, gen_graph_seq):
+    # print("run_pagerank_eval")
     test_points = extract_pagerank_q1_q3_points(test_graph_seq)
-    gen_points = extract_pagerank_q1_q3_points(gen_graph_seq)
+    # print("test_points:", test_points)
+    gen_points = extract_pagerank_q1_q3_points(gen_graph_seq)    
+    # print("gen_points:", gen_points)
     ks = compute_2d_ks(test_points, gen_points)
     return ks
 
@@ -393,11 +405,15 @@ def extract_degree_q1_q3_points(graph_seq):
         q1 = np.percentile(degrees, 25)
         q3 = np.percentile(degrees, 75)
         q1_q3_points.append([q1, q3])
+    # print("degree q1_q3_points:", q1_q3_points)
     return np.array(q1_q3_points)
 
 def run_node_degree_behavior_eval(test_graph_seq, gen_graph_seq):
+    # print("run_node_degree_behavior_eval")
     test_points = extract_degree_q1_q3_points(test_graph_seq)
+    # print("test_points:", test_points)
     gen_points = extract_degree_q1_q3_points(gen_graph_seq)
+    # print("gen_points:", gen_points)
     ks = compute_2d_ks(test_points, gen_points)
     return ks
 
@@ -407,13 +423,14 @@ def extract_centrality_q1_q3_points(graph_seq, type):
         if type == 'degree':
             centralities = np.array([d for _, d in nx.degree_centrality(g).items()])
         elif type == 'betweenness':
-            centralities = np.array([d for _, d in nx.betweenness_centrality(g).items()])
+            centralities = np.array([d for _, d in nx.betweenness_centrality(g.to_undirected()).items()])
         elif type == 'closeness':
             centralities = np.array([d for _, d in nx.closeness_centrality(g).items()])
         elif type == 'eigenvector':
             centralities = np.array([d for _, d in nx.eigenvector_centrality(g).items()])
         elif type == 'information':
             centralities = np.array([d for _, d in nx.information_centrality(g).items()])
+        # print(f"{type} centralities:", centralities)
         
         if len(centralities) < 4:
             continue
@@ -423,8 +440,11 @@ def extract_centrality_q1_q3_points(graph_seq, type):
     return np.array(q1_q3_points)
 
 def run_centrality_behavior_eval(test_graph_seq, gen_graph_seq, type):
+    # print("run_centrality_behavior_eval:", type)
     test_points = extract_centrality_q1_q3_points(test_graph_seq, type=type)
+    # print("test_points:", test_points)
     gen_points = extract_centrality_q1_q3_points(gen_graph_seq, type=type)
+    # print("gen_points:", gen_points)
     ks = compute_2d_ks(test_points, gen_points)
     return ks
 
@@ -461,14 +481,14 @@ def eval_graph_list(graph_ref_list, graph_pred_list, methods=None, kernels=None)
         if method == 'nspdk':
             results[method] = METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list)
         elif method in ['node_behavior_ks', 'random_walk_ks', 'pagerank_ks', 'node_degree_behavior_ks']:
-            results[method] = round(METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list))
+            results[method] = METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list)
         elif method == 'degree_centrality_behavior_ks':
-            results[method] = round(METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, type='degree'))
+            results[method] = METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, type='degree')
         elif method == 'betweenness_centrality_behavior_ks':
-            results[method] = round(METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, type='betweenness'))
+            results[method] = METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, type='betweenness')
         elif method == 'closeness_centrality_behavior_ks':
-            results[method] = round(METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, type='closeness'))
+            results[method] = METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, type='closeness')
         else:
-            results[method] = round(METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, kernels[method]), 6)
+            results[method] = METHOD_NAME_TO_FUNC[method](graph_ref_list, graph_pred_list, kernels[method])
         print('\033[91m' + f'{method:9s}' + '\033[0m' + ' : ' + '\033[94m' +  f'{results[method]:.6f}' + '\033[0m')
     return results

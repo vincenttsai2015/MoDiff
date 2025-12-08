@@ -1,0 +1,30 @@
+Nov27_1629_comp-sample
+----------------------------------------------------------------------------------------------------
+[Twitter]   init=ones (20)   seed=42   batch_size=64 spectral_dim=300
+File1: twitter_51200bins_modiffT  File1: twitter_51200bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.002 schedule=True ema=0.999 epochs=20 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,4)   : depth=2 adim=32 nhid=32 layers=6 linears=2 c=(2 8 4)
+(x:VP)=(0.10, 20.00) N=1000 (adj:VP)=(0.10, 20.00) N=1000
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 45.69s
+Round 1 : 46.02s
+Round 2 : 48.43s
+Round 3 : 49.49s
+Round 4 : 47.50s
+Round 5 : 47.91s
+Round 6 : 48.24s
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 45.71s
+Round 1 : 46.71s
+Round 2 : 47.37s
+Round 3 : 46.52s
+Round 4 : 47.42s
+Round 5 : 46.20s
+Round 6 : 46.88s
+Final Metrics: {'degree': 1.0400353340319644, 'cluster': 1.9893667043921517, 'spectral': 0.7550903180748105, 'node_behavior_ks': 1.0, 'random_walk_ks': 0.1, 'pagerank_ks': 0.8979328165374677, 'node_degree_behavior_ks': 1.0, 'degree_centrality_behavior_ks': 1.0, 'betweenness_centrality_behavior_ks': 0.020671834625323, 'closeness_centrality_behavior_ks': 1.0}

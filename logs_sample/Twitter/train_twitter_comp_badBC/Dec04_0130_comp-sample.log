@@ -1,0 +1,31 @@
+Dec04_0130_comp-sample
+----------------------------------------------------------------------------------------------------
+[Twitter]   init=ones (20)   seed=42   batch_size=64 spectral_dim=64
+File1: twitter_51200bins_modiffT  File1: twitter_51200bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.008 schedule=True ema=0.999 epochs=1 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,2)   : depth=1 adim=8 nhid=8 layers=3 linears=2 c=(1 4 2)
+(x:VP)=(0.10, 50.00) N=200 (adj:VP)=(0.10, 50.00) N=200
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.05 denoise=True ema=False || snr=0.05 seps=0.9 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 65
+Round 0 : 36.67s
+Round 1 : 35.77s
+Round 2 : 35.26s
+Round 3 : 35.24s
+Round 4 : 34.00s
+Round 5 : 39.47s
+Round 6 : 38.51s
+Final Metrics: {'degree': 1.0118893161978355, 'cluster': 1.7020524991739145, 'spectral': 0.6624769552267277, 'node_behavior_ks': 1.0, 'random_walk_ks': 0.1, 'pagerank_ks': 0.8695090439276486, 'node_degree_behavior_ks': 1.0, 'degree_centrality_behavior_ks': 1.0, 'betweenness_centrality_behavior_ks': 0.7314152256012721, 'closeness_centrality_behavior_ks': 1.0}
+(Euler)+(Langevin): eps=0.05 denoise=True ema=False || snr=0.05 seps=0.9 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 31
+Round 0 : 37.15s
+Round 1 : 37.39s
+Round 2 : 35.65s
+Round 3 : 35.34s
+Round 4 : 35.55s
+Round 5 : 34.74s
+Round 6 : 35.60s
+Final Metrics: {'degree': 1.0127147523916211, 'cluster': 1.7275918077916224, 'spectral': 0.6619113007740218, 'node_behavior_ks': 1.0, 'random_walk_ks': 0.1, 'pagerank_ks': 0.8578811369509044, 'node_degree_behavior_ks': 1.0, 'degree_centrality_behavior_ks': 1.0, 'betweenness_centrality_behavior_ks': 0.7507950705625124, 'closeness_centrality_behavior_ks': 1.0}

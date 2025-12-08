@@ -1,0 +1,20 @@
+Dec02_1320_comp-sample
+----------------------------------------------------------------------------------------------------
+[Twitter]   init=ones (20)   seed=42   batch_size=64 spectral_dim=64
+File1: twitter_51200bins_modiffT  File1: twitter_51200bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.008 schedule=True ema=0.999 epochs=1 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,2)   : depth=1 adim=8 nhid=8 layers=3 linears=2 c=(1 4 2)
+(x:VP)=(0.10, 50.00) N=200 (adj:VP)=(0.50, 80.00) N=100
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.2 denoise=True ema=False || snr=0.05 seps=0.9 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 35.00s
+Round 1 : 34.07s
+Round 2 : 34.34s
+Round 3 : 34.42s
+Round 4 : 34.43s
+Round 5 : 34.39s
+Round 6 : 34.39s
+Final Metrics: {'degree': 1.0284997019253073, 'cluster': 1.8143451128012764, 'spectral': 0.6989557511461955, 'node_behavior_ks': 1.0, 'random_walk_ks': 0.1, 'pagerank_ks': 0.8772609819121447, 'node_degree_behavior_ks': 1.0, 'degree_centrality_behavior_ks': 1.0, 'betweenness_centrality_behavior_ks': 0.6383919697873186, 'closeness_centrality_behavior_ks': 1.0}

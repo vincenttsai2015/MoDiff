@@ -1,0 +1,22 @@
+Nov28_0258_comp
+----------------------------------------------------------------------------------------------------
+[Wiki-vote]   init=ones (20)   seed=42   batch_size=64 spectral_dim=100
+File1: wiki-vote_6400bins_modiffT  File1: wiki-vote_6400bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.002 schedule=True ema=0.999 epochs=2 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,4)   : depth=2 adim=32 nhid=32 layers=6 linears=2 c=(2 8 4)
+(x:VP)=(0.10, 20.00) N=1000 (adj:VP)=(0.10, 20.00) N=1000
+----------------------------------------------------------------------------------------------------
+001 | 4.20s | test x: 2.298e+02 | test adj: 4.672e+01 | train x: 2.638e+02 | train adj: 5.029e+01 | 
+002 | 3.36s | test x: 8.818e+01 | test adj: 4.424e+01 | train x: 1.192e+02 | train adj: 4.558e+01 | 
+Nov28_0258_comp
+----------------------------------------------------------------------------------------------------
+[Wiki-vote]   init=ones (20)   seed=42   batch_size=64 spectral_dim=100
+File1: wiki-vote_25600bins_modiffT  File1: wiki-vote_25600bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.002 schedule=True ema=0.999 epochs=2 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,4)   : depth=2 adim=32 nhid=32 layers=6 linears=2 c=(2 8 4)
+(x:VP)=(0.10, 20.00) N=1000 (adj:VP)=(0.10, 20.00) N=1000
+----------------------------------------------------------------------------------------------------
+001 | 13.76s | test x: 1.651e+01 | test adj: 4.811e+01 | train x: 5.161e+01 | train adj: 4.875e+01 | 
+002 | 11.39s | test x: 1.489e+01 | test adj: 4.534e+01 | train x: 1.528e+01 | train adj: 4.599e+01 | 

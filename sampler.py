@@ -3,6 +3,7 @@ import time
 import pickle, json
 import math
 import torch
+import random
 
 from utils.logger import Logger, set_log, start_log, train_log, sample_log, check_log
 from utils.loader import load_ckpt,load_graph_list, load_data_TD_test, load_seed, load_device, load_model_from_ckpt, \
@@ -15,7 +16,66 @@ import networkx as nx
 from evaluation.mmd import gaussian, gaussian_emd
 from evaluation.stats import eval_graph_list
 
+def rewire_for_rw(G, p=0.3):
+    H = G.copy()
+    edges = list(H.edges())
+    nodes = list(H.nodes())
+    m = len(edges)
+    num_ops = int(p * m)
 
+    for _ in range(num_ops):
+        if not edges:
+            break
+        # 隨機挑一條邊拆掉
+        u, v = random.choice(edges)
+        if H.has_edge(u, v):
+            H.remove_edge(u, v)
+        # 隨機加一條新邊
+        a = random.choice(nodes)
+        b = random.choice(nodes)
+        # 避免 self-loop & duplicate
+        tries = 0
+        while (a == b or H.has_edge(a, b)) and tries < 10:
+            a = random.choice(nodes)
+            b = random.choice(nodes)
+            tries += 1
+        if a != b and not H.has_edge(a, b):
+            H.add_edge(a, b)
+        edges = list(H.edges())
+    return H
+
+def rewire_hubs_for_rw(G, frac_hubs=0.01, rewire_ratio=0.7):
+    H = G.copy()
+    n = H.number_of_nodes()
+    m = H.number_of_edges()
+    nodes = list(H.nodes())
+    
+    # 1. 找最高度數的一小部分節點（也可以用 PageRank）
+    degs = dict(H.degree())
+    k = max(1, int(frac_hubs * n))
+    hubs = sorted(degs, key=degs.get, reverse=True)[:k]
+
+    # 2. 對這些 hub 的 incident edges 做大規模 rewiring
+    for h in hubs:
+        nbrs = list(H.neighbors(h))
+        num_rewire = int(rewire_ratio * len(nbrs))
+        for _ in range(num_rewire):
+            if not nbrs:
+                break
+            v = random.choice(nbrs)
+            if H.has_edge(h, v):
+                H.remove_edge(h, v)
+                nbrs.remove(v)
+            # 換一條亂邊
+            u = h
+            w = random.choice(nodes)
+            tries = 0
+            while (u == w or H.has_edge(u, w)) and tries < 10:
+                w = random.choice(nodes)
+                tries += 1
+            if u != w and not H.has_edge(u, w):
+                H.add_edge(u, w)
+    return H
 
 class Sampler_G_DiT(object):
     def __init__(self, config):
@@ -93,12 +153,33 @@ class Sampler_G_DiT(object):
             
         assert len(gen_adj_list)==len(train_node_list)
         
-        pre_dense = json.load(open('utils/predensity.json'))[self.config.data.data + self.config.scale]
+        pre_dense_true = json.load(open('utils/predensity.json'))[self.config.data.data + self.config.scale]
+        density_scale = getattr(self.config.sampler, "density_scale", 1.0) # 加一個 config 超參數，讓你可以在 YAML 裡指定 density_scale
+        pre_dense = density_scale * pre_dense_true
+
         lower_lim = pre_dense + 0.15
         upper_lim = pre_dense - 0.15
-        thres1 = 0.2
-        samples_int, final_thres = quantize_DegreeBound_4Comp(gen_adj_list, train_node_list, thres1, thres1, lower_lim, upper_lim)
+        thres1 = self.config.sampler.threshold1
+        thres2 = self.config.sampler.threshold2
+        samples_int, final_thres = quantize_DegreeBound_4Comp(gen_adj_list, train_node_list, thres1, thres2, lower_lim, upper_lim) # lambda = final_thres
+        
+        # lam = self.config.sampler.lambda_fixed  # 例如從 YAML 讀進來
+        # samples_int = []
+        # for A, nodes in zip(gen_adj_list, train_node_list):
+        #     A_bin = (A > lam).astype(int)
+        #     samples_int.append(A_bin)
+        # p = self.config.sampler.rw_rewire_p if hasattr(self.config.sampler, "rw_rewire_p") else 0.0
+        frac = self.config.sampler.frac_hubs if hasattr(self.config.sampler, "frac_hubs") else 0.0
+        rewire_p = self.config.sampler.rewire_ratio if hasattr(self.config.sampler, "rewire_ratio") else 0.0
         gen_graph_list = adjsWnodes_to_graphs(samples_int, train_node_list, True)
+
+        if rewire_p > 0.0:
+            gen_graph_list_rewired = []
+            for G in gen_graph_list:
+                G_rewired = rewire_hubs_for_rw(G, frac_hubs=frac, rewire_ratio=rewire_p) # for superuser
+                # G_rewired = rewire_for_rw(G, p=p)  # original
+                gen_graph_list_rewired.append(G_rewired)
+            gen_graph_list = gen_graph_list_rewired
 
         assert len(gen_graph_list)==len(test_graph_list)
         # save_graph_list(os.path.join(*['Sensity', self.config.data.data]) , f"{self.config.ckpt[:]}_{pre_dense}_{str('%.2f'%final_thres)[-2:]}", gen_graph_list)

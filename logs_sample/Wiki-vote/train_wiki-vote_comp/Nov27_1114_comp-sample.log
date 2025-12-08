@@ -113,3 +113,62 @@ Round 0 : 51.36s
 Round 0 : 52.29s
 Final Metrics: {'degree': 0.674955, 'cluster': 0.269755, 'spectral': 0.61356, 'node_behavior_ks': 0, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 0, 'degree_centrality_behavior_ks': 1, 'betweenness_centrality_behavior_ks': 0, 'closeness_centrality_behavior_ks': 0}
 Final Metrics: {'degree': 0.792949, 'cluster': 0.546951, 'spectral': 0.392085, 'node_behavior_ks': 1, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 1, 'degree_centrality_behavior_ks': 1, 'betweenness_centrality_behavior_ks': 0, 'closeness_centrality_behavior_ks': 0}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 54.27s
+Round 0 : 54.36s
+Final Metrics: {'degree': 0.792949, 'cluster': 0.546951, 'spectral': 0.392085, 'node_behavior_ks': 1, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 1, 'degree_centrality_behavior_ks': 1, 'betweenness_centrality_behavior_ks': 0, 'closeness_centrality_behavior_ks': 0}
+Final Metrics: {'degree': 0.674955, 'cluster': 0.269755, 'spectral': 0.61356, 'node_behavior_ks': 0, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 0, 'degree_centrality_behavior_ks': 1, 'betweenness_centrality_behavior_ks': 0, 'closeness_centrality_behavior_ks': 0}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 52.99s
+Round 0 : 52.01s
+Final Metrics: {'degree': 0.792949, 'cluster': 0.546951, 'spectral': 0.392085, 'node_behavior_ks': 1, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 1, 'degree_centrality_behavior_ks': 1, 'betweenness_centrality_behavior_ks': 0, 'closeness_centrality_behavior_ks': 0}
+Final Metrics: {'degree': 0.674955, 'cluster': 0.269755, 'spectral': 0.61356, 'node_behavior_ks': 0, 'random_walk_ks': 0, 'pagerank_ks': 1, 'node_degree_behavior_ks': 0, 'degree_centrality_behavior_ks': 1, 'betweenness_centrality_behavior_ks': 0, 'closeness_centrality_behavior_ks': 0}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 54.53s
+Round 0 : 55.74s
+Final Metrics: {'degree': 0.6749551533398079, 'cluster': 0.2697550343443256, 'spectral': 0.6135603265194274, 'node_behavior_ks': 0.47208931419457734, 'random_walk_ks': 0.25, 'pagerank_ks': 0.8548644338118022, 'node_degree_behavior_ks': 0.47208931419457734, 'degree_centrality_behavior_ks': 0.868421052631579, 'betweenness_centrality_behavior_ks': 0.06299840510366826, 'closeness_centrality_behavior_ks': 0.36363636363636365}
+Final Metrics: {'degree': 0.7929485579785102, 'cluster': 0.5469505302862184, 'spectral': 0.3920852701295909, 'node_behavior_ks': 0.5526315789473684, 'random_walk_ks': 0.25, 'pagerank_ks': 0.8622807017543859, 'node_degree_behavior_ks': 0.5526315789473684, 'degree_centrality_behavior_ks': 0.7469298245614036, 'betweenness_centrality_behavior_ks': 0.06140350877192982, 'closeness_centrality_behavior_ks': 0.26359649122807016}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 55.50s
+Round 0 : 54.81s
+Final Metrics: {'degree': 0.6749551533398079, 'cluster': 0.2697550343443256, 'spectral': 0.6135603265194274, 'node_behavior_ks': 0.47208931419457734, 'random_walk_ks': 0.25, 'pagerank_ks': 0.8548644338118022, 'node_degree_behavior_ks': 0.47208931419457734, 'degree_centrality_behavior_ks': 0.868421052631579, 'betweenness_centrality_behavior_ks': 0.06299840510366826, 'closeness_centrality_behavior_ks': 0.36363636363636365}
+Final Metrics: {'degree': 0.7929485579785102, 'cluster': 0.5469505302862184, 'spectral': 0.3920852701295909, 'node_behavior_ks': 0.5526315789473684, 'random_walk_ks': 0.25, 'pagerank_ks': 0.8622807017543859, 'node_degree_behavior_ks': 0.5526315789473684, 'degree_centrality_behavior_ks': 0.7469298245614036, 'betweenness_centrality_behavior_ks': 0.06140350877192982, 'closeness_centrality_behavior_ks': 0.26359649122807016}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 48.35s
+Round 0 : 50.37s
+Final Metrics: {'degree': 0.6749551533398079, 'cluster': 0.2697550343443256, 'spectral': 0.6135603265194274, 'node_behavior_ks': 0.47208931419457734, 'random_walk_ks': 0.25, 'pagerank_ks': 0.8548644338118022, 'node_degree_behavior_ks': 0.47208931419457734, 'degree_centrality_behavior_ks': 0.868421052631579, 'betweenness_centrality_behavior_ks': 0.10845295055821372, 'closeness_centrality_behavior_ks': 0.36363636363636365}
+Final Metrics: {'degree': 0.7929485579785102, 'cluster': 0.5469505302862184, 'spectral': 0.3920852701295909, 'node_behavior_ks': 0.5526315789473684, 'random_walk_ks': 0.25, 'pagerank_ks': 0.8622807017543859, 'node_degree_behavior_ks': 0.5526315789473684, 'degree_centrality_behavior_ks': 0.7469298245614036, 'betweenness_centrality_behavior_ks': 0.1587719298245614, 'closeness_centrality_behavior_ks': 0.26359649122807016}

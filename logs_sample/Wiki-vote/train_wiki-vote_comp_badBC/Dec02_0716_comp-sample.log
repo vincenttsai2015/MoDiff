@@ -1,0 +1,17 @@
+Dec02_0716_comp-sample
+----------------------------------------------------------------------------------------------------
+[Wiki-vote]   init=ones (20)   seed=42   batch_size=64 spectral_dim=64
+File1: wiki-vote_6400bins_modiffT  File1: wiki-vote_6400bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.008 schedule=True ema=0.999 epochs=2 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,2)   : depth=1 adim=8 nhid=8 layers=3 linears=2 c=(1 4 2)
+(x:VP)=(0.10, 50.00) N=200 (adj:VP)=(0.01, 20.00) N=500
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.09 denoise=True ema=False || snr=0.05 seps=0.9 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.09 denoise=True ema=False || snr=0.05 seps=0.9 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 37.07s
+Final Metrics: {'degree': 0.9459522676711175, 'cluster': 1.5036606457599193, 'spectral': 0.41209292815299287, 'node_behavior_ks': 1.0, 'random_walk_ks': 0.2, 'pagerank_ks': 0.8135964912280702, 'node_degree_behavior_ks': 1.0, 'degree_centrality_behavior_ks': 0.956140350877193, 'betweenness_centrality_behavior_ks': 0.85, 'closeness_centrality_behavior_ks': 1.0}

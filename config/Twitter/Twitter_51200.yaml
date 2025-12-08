@@ -1,0 +1,77 @@
+data:
+  data: Twitter
+  dir: './data/twitter'  # .pkl file location
+  file1: twitter_51200bins_modiff
+  file2: twitter_51200bins_modiff
+  batch_size: 64
+  test_split: 0.1
+  max_node_num: 1100
+  max_feat_num: 20
+  spec_dim: 64          # 極少 eigenvalues
+  init: ones
+
+model:
+  x: ScoreNetworkX
+  adj: ScoreNetworkA_eigen
+  u: ScoreNetworkU
+  conv: GCN
+  num_heads: 2
+  depth: 1
+  adim: 8
+  nhid: 8
+  num_layers: 3
+  num_linears: 2
+  c_init: 1
+  c_hid: 4
+  c_final: 2
+
+train:
+  name: train_twitter_comp_badBC
+  num_epochs: 1          # 或 1
+  lr: 0.004
+  lr_schedule: True
+  save_interval: 50
+  print_interval: 50
+  reduce_mean: False
+  ema: 0.999
+  weight_decay: 0.0001
+  grad_norm: 1.0
+  lr_decay: 0.999
+  eps: 1.0e-5
+
+sde:
+  x:
+    type: VP
+    beta_min: 0.1
+    beta_max: 50.0      # 更大的 beta_max
+    num_scales: 200
+  adj:
+    type: VP
+    beta_min: 0.1
+    beta_max: 50.0      # 更大的 beta_max
+    num_scales: 200
+  u:
+    type: VP
+    beta_min: 0.1
+    beta_max: 50.0      # 更大的 beta_max
+    num_scales: 200
+
+sampler:
+  predictor: Euler
+  corrector: Langevin
+  snr: 0.05
+  scale_eps: 0.9
+  n_steps: 1
+  density_scale: 2.0
+  threshold1: 0.0
+  threshold2: 1.0
+  rw_rewire_p: 0.8
+  # lambda_fixed: 0.5
+
+sample:
+  use_ema: False
+  noise_removal: True
+  probability_flow: False
+  eps: 5.0e-2
+  seed: 35
+

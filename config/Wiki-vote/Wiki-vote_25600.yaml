@@ -1,72 +1,73 @@
 data:
   data: Wiki-vote
-  dir: './data/wiki-vote'  # .pkl file location
+  dir: './data/wiki-vote_25600'  # .pkl file location
   file1: wiki-vote_25600bins_modiff
   file2: wiki-vote_25600bins_modiff
   batch_size: 64
-  test_split: 0.1      # 10% for testing
+  test_split: 0.1
   max_node_num: 1100
   max_feat_num: 20
-  spec_dim: 300
+  spec_dim: 64          # 極少 eigenvalues
   init: ones
-
-sde:
-  x:
-    type: VP
-    beta_min: 0.1
-    beta_max: 20.0
-    num_scales: 1000
-  adj:
-    type: VP
-    beta_min: 0.1
-    beta_max: 20.0
-    num_scales: 1000
-  u:
-    type: VP
-    beta_min: 0.1
-    beta_max: 20.0
-    num_scales: 1000
 
 model:
   x: ScoreNetworkX
   adj: ScoreNetworkA_eigen
   u: ScoreNetworkU
   conv: GCN
-  num_heads: 4
-  depth: 2
-  adim: 32
-  nhid: 32
-  num_layers: 6
+  num_heads: 2
+  depth: 1
+  adim: 16
+  nhid: 16
+  num_layers: 3
   num_linears: 2
-  c_init: 2
-  c_hid: 8
-  c_final: 4
+  c_init: 1
+  c_hid: 4
+  c_final: 2
 
 train:
-  name: train_wiki-vote_comp
-  num_epochs: 20
+  name: train_wiki-vote_comp_25600bins_badBC
+  num_epochs: 1          # 或 1
+  lr: 0.008
+  lr_schedule: True
   save_interval: 50
   print_interval: 50
   reduce_mean: False
-  lr: 0.002
-  lr_schedule: True
   ema: 0.999
   weight_decay: 0.0001
   grad_norm: 1.0
   lr_decay: 0.999
   eps: 1.0e-5
 
+sde:
+  x:
+    type: VP
+    beta_min: 0.1
+    beta_max: 50.0      # 更大的 beta_max
+    num_scales: 200
+  adj:
+    type: VP
+    beta_min: 0.1
+    beta_max: 50.0
+    num_scales: 200
+  u:
+    type: VP
+    beta_min: 0.1
+    beta_max: 50.0      # 更大的 beta_max
+    num_scales: 200
+
 sampler:
   predictor: Euler
   corrector: Langevin
-  snr: 0.1
-  scale_eps: 0.7
+  snr: 0.05
+  scale_eps: 0.9
   n_steps: 1
+  threshold1: 0.5
+  threshold2: 0.5
 
 sample:
-  use_ema: True
+  use_ema: False
   noise_removal: True
   probability_flow: False
-  eps: 1.0e-4
+  eps: 5.0e-2
   seed: 42
-

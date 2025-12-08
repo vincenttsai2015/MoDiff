@@ -1,0 +1,19 @@
+Nov28_0258_comp-sample
+----------------------------------------------------------------------------------------------------
+[Wiki-vote]   init=ones (20)   seed=42   batch_size=64 spectral_dim=100
+File1: wiki-vote_25600bins_modiffT  File1: wiki-vote_25600bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.002 schedule=True ema=0.999 epochs=2 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,4)   : depth=2 adim=32 nhid=32 layers=6 linears=2 c=(2 8 4)
+(x:VP)=(0.10, 20.00) N=1000 (adj:VP)=(0.10, 20.00) N=1000
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 40.90s
+Final Metrics: {'degree': 0.6606284871190874, 'cluster': 0.3171178380577182, 'spectral': 0.4836268761673502, 'node_behavior_ks': 0.5701754385964912, 'random_walk_ks': 0.25, 'pagerank_ks': 0.8486842105263157, 'node_degree_behavior_ks': 0.5701754385964912, 'degree_centrality_behavior_ks': 0.650438596491228, 'betweenness_centrality_behavior_ks': 0.28157894736842104, 'closeness_centrality_behavior_ks': 0.2982456140350877}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 39.15s
+Final Metrics: {'degree': 0.6659723626035664, 'cluster': 0.21942206051668856, 'spectral': 0.7686474452536012, 'node_behavior_ks': 0.5789473684210527, 'random_walk_ks': 0.3, 'pagerank_ks': 0.8181818181818182, 'node_degree_behavior_ks': 0.5789473684210527, 'degree_centrality_behavior_ks': 0.726475279106858, 'betweenness_centrality_behavior_ks': 0.2687400318979266, 'closeness_centrality_behavior_ks': 0.2934609250398724}

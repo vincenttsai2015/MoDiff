@@ -1,0 +1,22 @@
+Nov28_1058_comp-sample
+----------------------------------------------------------------------------------------------------
+[Wiki-vote]   init=ones (20)   seed=42   batch_size=64 spectral_dim=2
+File1: wiki-vote_25600bins_modiffT  File1: wiki-vote_25600bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.005 schedule=False ema=0.999 epochs=1 reduce=False eps=0.01
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,1)   : depth=1 adim=4 nhid=4 layers=1 linears=1 c=(1 2 1)
+(x:VP)=(0.10, 50.00) N=50 (adj:VP)=(0.10, 50.00) N=50
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=False || snr=0.05 seps=0.9 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=False || snr=0.05 seps=0.9 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 35.76s
+Final Metrics: {'degree': 0.9788171618656392, 'cluster': 1.2408342669011472, 'spectral': 0.656331128159074, 'node_behavior_ks': 0.9545454545454546, 'random_walk_ks': 0.35, 'pagerank_ks': 0.8564593301435406, 'node_degree_behavior_ks': 0.9545454545454546, 'degree_centrality_behavior_ks': 0.34768740031897927, 'betweenness_centrality_behavior_ks': 0.11722488038277512, 'closeness_centrality_behavior_ks': 1.0}
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=False || snr=0.05 seps=0.9 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 36.99s
+Final Metrics: {'degree': 0.9788171618656392, 'cluster': 1.2408342669011472, 'spectral': 0.656331128159074, 'node_behavior_ks': 0.9545454545454546, 'random_walk_ks': 0.35, 'pagerank_ks': 0.8564593301435406, 'node_degree_behavior_ks': 0.9545454545454546, 'degree_centrality_behavior_ks': 0.34768740031897927, 'betweenness_centrality_behavior_ks': 0.11722488038277512, 'closeness_centrality_behavior_ks': 1.0}

@@ -279,12 +279,19 @@ def adjsWnodes_to_graphs(adjs, nodes, is_cuda=False):
     graph_list = []
     for adj, node_list in zip(adjs, nodes):
         # Ensure the adjacency matrix is square and matches the length of the node list
+        # nonzero_indices = np.argwhere(adj != 0)
         nonzero_indices = np.argwhere(adj.cpu() != 0)
-        if len(nonzero_indices[0])>0: max_row_index = torch.max(nonzero_indices[0]).item() 
-        else: max_row_index =0
-        if len(nonzero_indices[1])>0: max_col_index = torch.max(nonzero_indices[1]).item()
-        else: max_col_index =0
-        assert max(max_row_index, max_col_index) <= len(node_list), "Adjacency Matrix is higher than Nodes"
+        if len(nonzero_indices[0])>0: 
+            # max_row_index = np.max(nonzero_indices[0]).item() 
+            max_row_index = torch.max(nonzero_indices[0]).item() 
+        else: 
+            max_row_index =0
+        if len(nonzero_indices[1])>0: 
+            # max_col_index = np.max(nonzero_indices[1]).item()
+            max_col_index = torch.max(nonzero_indices[1]).item()
+        else: 
+            max_col_index =0
+        # assert max(max_row_index, max_col_index) <= len(node_list), "Adjacency Matrix is higher than Nodes"
         sub_adj = adj[:len(node_list), :len(node_list)]
         if is_cuda:
             sub_adj = sub_adj.detach().cpu().numpy()

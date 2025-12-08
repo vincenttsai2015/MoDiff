@@ -1,0 +1,46 @@
+Dec02_0403_comp-sample
+----------------------------------------------------------------------------------------------------
+[Superuser]   init=ones (20)   seed=42   batch_size=64 spectral_dim=64
+File1: superuser_240000bins_modiffT  File1: superuser_240000bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.008 schedule=True ema=0.999 epochs=1 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,2)   : depth=1 adim=8 nhid=8 layers=3 linears=2 c=(1 4 2)
+(x:VP)=(0.10, 50.00) N=200 (adj:VP)=(0.10, 50.00) N=200
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.05 denoise=True ema=False || snr=0.05 seps=0.9 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 37.11s
+Round 1 : 36.34s
+Round 2 : 36.80s
+Round 3 : 36.49s
+Round 4 : 35.80s
+Round 5 : 35.87s
+Round 6 : 35.85s
+Round 7 : 34.90s
+Round 8 : 34.54s
+Round 9 : 34.69s
+Round 10 : 36.59s
+Round 11 : 36.45s
+Round 12 : 36.41s
+Round 13 : 36.07s
+Round 14 : 36.14s
+Round 15 : 36.41s
+Round 16 : 36.80s
+Round 17 : 36.09s
+Round 18 : 35.29s
+Round 19 : 34.60s
+Round 20 : 35.72s
+Round 21 : 37.15s
+Round 22 : 36.72s
+Round 23 : 36.37s
+Round 24 : 36.32s
+Round 25 : 36.04s
+Round 26 : 36.53s
+Round 27 : 36.08s
+Round 28 : 36.37s
+Round 29 : 36.25s
+Round 30 : 36.26s
+Round 31 : 37.33s
+Round 32 : 37.52s
+Final Metrics: {'degree': 0.9272578442029203, 'cluster': 1.722243129107542, 'spectral': 0.18935520249505605, 'node_behavior_ks': 1.0, 'random_walk_ks': 0.05, 'pagerank_ks': 0.29144143918063203, 'node_degree_behavior_ks': 1.0, 'degree_centrality_behavior_ks': 0.9984152517277897, 'betweenness_centrality_behavior_ks': 0.40231066252432124, 'closeness_centrality_behavior_ks': 1.0}

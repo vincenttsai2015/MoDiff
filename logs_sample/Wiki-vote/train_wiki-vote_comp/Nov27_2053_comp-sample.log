@@ -1,0 +1,19 @@
+Nov27_2053_comp-sample
+----------------------------------------------------------------------------------------------------
+[Wiki-vote]   init=ones (20)   seed=42   batch_size=64 spectral_dim=100
+File1: wiki-vote_25600bins_modiffT  File1: wiki-vote_25600bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.002 schedule=True ema=0.999 epochs=20 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,4)   : depth=2 adim=32 nhid=32 layers=6 linears=2 c=(2 8 4)
+(x:VP)=(0.10, 20.00) N=1000 (adj:VP)=(0.10, 20.00) N=1000
+----------------------------------------------------------------------------------------------------
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+(Euler)+(Langevin): eps=0.0001 denoise=True ema=True || snr=0.1 seps=0.7 n_steps=1 
+----------------------------------------------------------------------------------------------------
+GEN SEED: 42
+Round 0 : 38.71s
+Round 0 : 40.72s
+Final Metrics: {'degree': 0.575661380857905, 'cluster': 0.16409583747857392, 'spectral': 0.6011663632091275, 'node_behavior_ks': 0.47208931419457734, 'random_walk_ks': 0.25, 'pagerank_ks': 0.865231259968102, 'node_degree_behavior_ks': 0.47208931419457734, 'degree_centrality_behavior_ks': 0.8947368421052632, 'betweenness_centrality_behavior_ks': 0.10845295055821372, 'closeness_centrality_behavior_ks': 0.36363636363636365}
+Final Metrics: {'degree': 0.8265874914399239, 'cluster': 0.6153003871456437, 'spectral': 0.3957176483481698, 'node_behavior_ks': 0.6228070175438596, 'random_walk_ks': 0.25, 'pagerank_ks': 0.8460526315789474, 'node_degree_behavior_ks': 0.6228070175438596, 'degree_centrality_behavior_ks': 0.6868421052631579, 'betweenness_centrality_behavior_ks': 0.1587719298245614, 'closeness_centrality_behavior_ks': 0.25745614035087716}
