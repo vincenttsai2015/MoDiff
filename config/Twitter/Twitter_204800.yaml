@@ -3,7 +3,7 @@ data:
   dir: './data/twitter'  # .pkl file location
   file1: twitter_204800bins_modiff
   file2: twitter_204800bins_modiff
-  batch_size: 64
+  batch_size: 128
   test_split: 0.1      # 10% for testing
   max_node_num: 1100
   max_feat_num: 20
@@ -44,7 +44,7 @@ model:
 
 train:
   name: train_twitter_comp
-  num_epochs: 20
+  num_epochs: 10
   save_interval: 50
   print_interval: 50
   reduce_mean: False

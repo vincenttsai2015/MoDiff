@@ -1,0 +1,19 @@
+May23_1703_comp
+----------------------------------------------------------------------------------------------------
+[Twitter]   init=ones (20)   seed=42   batch_size=32 spectral_dim=300
+File1: twitter_204800bins_modiffT  File1: twitter_204800bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.002 schedule=True ema=0.999 epochs=10 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,4)   : depth=2 adim=32 nhid=32 layers=6 linears=2 c=(2 8 4)
+(x:VP)=(0.10, 20.00) N=1000 (adj:VP)=(0.10, 20.00) N=1000
+----------------------------------------------------------------------------------------------------
+001 | 121.94s | test x: 4.627e+00 | test adj: 1.480e+02 | train x: 6.589e+00 | train adj: 1.490e+02 | 
+002 | 80.43s | test x: 3.688e+00 | test adj: 1.479e+02 | train x: 4.314e+00 | train adj: 1.485e+02 | 
+003 | 82.98s | test x: 3.765e+00 | test adj: 1.482e+02 | train x: 3.930e+00 | train adj: 1.485e+02 | 
+004 | 76.38s | test x: 2.862e+00 | test adj: 1.486e+02 | train x: 3.693e+00 | train adj: 1.484e+02 | 
+005 | 80.31s | test x: 2.703e+00 | test adj: 1.484e+02 | train x: 3.349e+00 | train adj: 1.482e+02 | 
+006 | 77.92s | test x: 2.345e+00 | test adj: 1.488e+02 | train x: 3.139e+00 | train adj: 1.484e+02 | 
+007 | 76.88s | test x: 2.310e+00 | test adj: 1.482e+02 | train x: 3.015e+00 | train adj: 1.483e+02 | 
+008 | 81.21s | test x: 2.518e+00 | test adj: 1.480e+02 | train x: 3.031e+00 | train adj: 1.484e+02 | 
+009 | 81.80s | test x: 2.107e+00 | test adj: 1.484e+02 | train x: 2.798e+00 | train adj: 1.482e+02 | 
+010 | 85.50s | test x: 2.163e+00 | test adj: 1.483e+02 | train x: 2.698e+00 | train adj: 1.482e+02 | 

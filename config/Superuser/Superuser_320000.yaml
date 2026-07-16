@@ -3,7 +3,7 @@ data:
   dir: './data/superuser'  # .pkl file location
   file1: superuser_320000bins_modiff
   file2: superuser_320000bins_modiff
-  batch_size: 64
+  batch_size: 32
   test_split: 0.1
   max_node_num: 1100
   max_feat_num: 20
@@ -19,7 +19,7 @@ model:
   depth: 1
   adim: 16
   nhid: 16
-  num_layers: 3
+  num_layers: 6
   num_linears: 2
   c_init: 1
   c_hid: 4
@@ -44,7 +44,7 @@ sde:
 
 train:
   name: train_superuser_comp_badBC
-  num_epochs: 1          # 或 1
+  num_epochs: 10          # 或 1
   lr: 0.008
   lr_schedule: True
   save_interval: 50

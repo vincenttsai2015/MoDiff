@@ -1,0 +1,19 @@
+May23_1703_comp
+----------------------------------------------------------------------------------------------------
+[Wiki-vote]   init=ones (20)   seed=42   batch_size=32 spectral_dim=64
+File1: wiki-vote_25600bins_modiffT  File1: wiki-vote_25600bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.008 schedule=True ema=0.999 epochs=10 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,2)   : depth=1 adim=16 nhid=16 layers=6 linears=2 c=(1 4 2)
+(x:VP)=(0.10, 50.00) N=200 (adj:VP)=(0.10, 50.00) N=200
+----------------------------------------------------------------------------------------------------
+001 | 14.85s | test x: 1.034e+01 | test adj: 2.744e+01 | train x: 2.665e+01 | train adj: 2.870e+01 | 
+002 | 9.62s | test x: 1.029e+01 | test adj: 2.758e+01 | train x: 9.859e+00 | train adj: 2.736e+01 | 
+003 | 8.77s | test x: 1.173e+01 | test adj: 2.688e+01 | train x: 8.788e+00 | train adj: 2.742e+01 | 
+004 | 9.37s | test x: 7.812e+00 | test adj: 2.650e+01 | train x: 9.540e+00 | train adj: 2.764e+01 | 
+005 | 9.34s | test x: 6.821e+00 | test adj: 2.660e+01 | train x: 8.036e+00 | train adj: 2.752e+01 | 
+006 | 8.57s | test x: 6.640e+00 | test adj: 2.671e+01 | train x: 8.010e+00 | train adj: 2.721e+01 | 
+007 | 10.15s | test x: 6.577e+00 | test adj: 2.805e+01 | train x: 7.837e+00 | train adj: 2.753e+01 | 
+008 | 9.32s | test x: 7.310e+00 | test adj: 2.652e+01 | train x: 7.483e+00 | train adj: 2.746e+01 | 
+009 | 8.04s | test x: 7.776e+00 | test adj: 2.724e+01 | train x: 7.109e+00 | train adj: 2.705e+01 | 
+010 | 9.05s | test x: 5.431e+00 | test adj: 2.718e+01 | train x: 6.550e+00 | train adj: 2.717e+01 | 

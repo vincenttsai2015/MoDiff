@@ -1,0 +1,19 @@
+May23_1703_comp
+----------------------------------------------------------------------------------------------------
+[Superuser]   init=ones (20)   seed=42   batch_size=32 spectral_dim=32
+File1: superuser_320000bins_modiffT  File1: superuser_320000bins_modiffT
+----------------------------------------------------------------------------------------------------
+lr=0.008 schedule=True ema=0.999 epochs=10 reduce=False eps=1e-05
+(ScoreNetworkX)+(ScoreNetworkA_eigen=GCN,2)   : depth=1 adim=16 nhid=16 layers=6 linears=2 c=(1 4 2)
+(x:VP)=(0.10, 50.00) N=200 (adj:VP)=(0.10, 50.00) N=200
+----------------------------------------------------------------------------------------------------
+001 | 416.95s | test x: 6.780e+00 | test adj: 1.021e+01 | train x: 9.410e+00 | train adj: 1.097e+01 | 
+002 | 222.08s | test x: 5.837e+00 | test adj: 1.023e+01 | train x: 6.566e+00 | train adj: 1.080e+01 | 
+003 | 120.96s | test x: 5.963e+00 | test adj: 1.012e+01 | train x: 6.081e+00 | train adj: 1.077e+01 | 
+004 | 139.51s | test x: 5.267e+00 | test adj: 1.019e+01 | train x: 5.936e+00 | train adj: 1.076e+01 | 
+005 | 137.46s | test x: 5.490e+00 | test adj: 1.005e+01 | train x: 5.665e+00 | train adj: 1.070e+01 | 
+006 | 135.11s | test x: 5.247e+00 | test adj: 1.003e+01 | train x: 5.686e+00 | train adj: 1.069e+01 | 
+007 | 126.81s | test x: 5.394e+00 | test adj: 1.013e+01 | train x: 5.514e+00 | train adj: 1.067e+01 | 
+008 | 133.40s | test x: 5.536e+00 | test adj: 1.018e+01 | train x: 5.463e+00 | train adj: 1.065e+01 | 
+009 | 124.08s | test x: 4.857e+00 | test adj: 1.012e+01 | train x: 5.346e+00 | train adj: 1.072e+01 | 
+010 | 129.48s | test x: 5.175e+00 | test adj: 1.009e+01 | train x: 5.429e+00 | train adj: 1.066e+01 | 
