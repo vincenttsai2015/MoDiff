@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn.functional as F
 import networkx as nx
@@ -841,8 +842,14 @@ def encode_to_reversed_binary(feature, num_bits):
 
 def upsert_dense_value(graphlists, key, json_file = 'utils/predensity.json' ):
     densevalue =  sum([compute_overall_mean_degree(graphlists[i]) for i in range(len(graphlists))])
-    with open(json_file, 'r', encoding='utf-8') as f:
-        data = json.load(f)
+    # 這個檔案是執行時累積的，內容隨各人跑過哪些組合而不同，因此不進版本控制。
+    # 第一次執行、或清乾淨重來時它不存在，當成空的即可。
+    os.makedirs(os.path.dirname(json_file) or '.', exist_ok=True)
+    try:
+        with open(json_file, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError):
+        data = {}
 
     data[key] = round(densevalue - 0.1, 1)
 
