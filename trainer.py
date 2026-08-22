@@ -117,7 +117,9 @@ class Trainer_G_DT_comp(object):
                        f'train x: {mean_train_x:.3e} | train adj: {mean_train_adj:.3e} | ', verbose=False)
 
             # -------- Save checkpoints --------
-            if epoch % self.config.train.num_epochs == self.config.train.num_epochs  - 1: #self.config.train.save_interval
+            _save_every = getattr(self.config.train, 'save_interval', self.config.train.num_epochs)
+            _is_last = (epoch == self.config.train.num_epochs - 1)
+            if _is_last or (epoch % _save_every == _save_every - 1):
                 torch.save({
                     'model_config': self.config,
                     'params_x': self.params_x,

@@ -6,21 +6,66 @@ import random
 import numpy as np
 from scipy.sparse.linalg import eigsh
 
+def _has_nan(*ts):
+    for x in ts:
+        b = x.real if x.is_complex() else x
+        if torch.isnan(b).any() or torch.isinf(b).any():
+            return True
+    return False
+
+
+def _eigh_safe(m):
+    """回傳 (特徵值, 特徵向量, 用了第幾層退路)。
+
+    稀疏圖的鄰接補零之後有大量重複的零特徵值。cuSOLVER 在這種退化情況
+    有時拋例外、有時不拋而直接回傳 NaN，所以要檢查輸出而不是只接例外。
+    退路一是 CPU 雙精度加對角微擾打散重複的特徵值，退路二是放棄該張，
+    回傳零特徵值與單位矩陣。
+    """
+    try:
+        la, u = torch.linalg.eigh(m)
+        if not _has_nan(la, u):
+            return la, u, 0
+    except Exception:
+        pass
+
+    n = m.shape[0]
+    mc = m.detach().cpu().to(torch.complex128)
+    mc = mc + torch.eye(n, dtype=mc.dtype) * 1e-8
+    try:
+        la, u = torch.linalg.eigh(mc)
+        if not _has_nan(la, u):
+            return (la.to(torch.float32).to(m.device),
+                    u.to(torch.complex64).to(m.device), 1)
+    except Exception:
+        pass
+
+    return (torch.zeros(n, dtype=torch.float32, device=m.device),
+            torch.eye(n, dtype=torch.complex64, device=m.device), 2)
+
+
 def top_k_eigen(adjs_tensor, k=20):
     data_size, n, _ = adjs_tensor.shape
     print("Begin TopK")
 
     top_eigenvalues = torch.zeros((data_size, k), dtype=torch.float32, device=adjs_tensor.device)
     top_eigenvectors = torch.zeros((data_size, n, k), dtype=torch.complex64, device=adjs_tensor.device)
+    n_cpu = n_fail = 0
     for i in range(data_size):
-        la, u = torch.linalg.eigh(adjs_tensor[i])
-        
+        la, u, level = _eigh_safe(adjs_tensor[i])
+        n_cpu += (level == 1)
+        n_fail += (level == 2)
+
         # Select the top k eigenvalues and corresponding eigenvectors
         top_indices = torch.argsort(la, descending=True)[:k]
         top_eigenvalues[i] = la[top_indices]
         top_eigenvectors[i] = u[:, top_indices]
-        if i%100==0: print(f"Compute Top K Eigen: {i}/{data_size}")
+        if i%100==0: print(f"Compute Top K Eigen: {i}/{data_size}", flush=True)
 
+    if n_cpu or n_fail:
+        print(f"[eigh] {n_cpu}/{data_size} 張退到 CPU 雙精度，"
+              f"{n_fail}/{data_size} 張分解失敗改用零特徵值", flush=True)
+    assert not _has_nan(top_eigenvalues, top_eigenvectors),         "top_k_eigen 仍然產生 NaN"
     return top_eigenvalues, top_eigenvectors
 
 def power_iteration(A, num_simulations: int):

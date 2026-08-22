@@ -62,6 +62,11 @@ sampler:
   snr: 0.1
   scale_eps: 0.7
   n_steps: 1
+  # 原本沒有這兩個欄位，sampler.py:162 讀不到會 AttributeError。
+  # 取 0.5/0.5 與 Wiki-vote_25600 一致；Superuser_320000 用 0.3/0.3，
+  # Twitter_51200 用 0.0/1.0（但那份另有 density_scale 與 rewire，沒有一併採用）。
+  threshold1: 0.5
+  threshold2: 0.5
 
 sample:
   use_ema: True

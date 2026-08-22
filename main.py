@@ -1,3 +1,4 @@
+import os
 import torch
 import argparse
 import time
@@ -11,6 +12,9 @@ def main(parsed_args):
     pynvml.nvmlInit()
     deviceCount = pynvml.nvmlDeviceGetCount()
     ts = time.strftime('%b%d_%H%M', time.localtime())
+    _run_tag = os.environ.get('MODIFF_RUN_TAG', '')
+    if _run_tag:
+        ts = _run_tag
     gsdm_args = GSDM_Parser().parse()
     print(f'gsdm_args: {gsdm_args}')
 

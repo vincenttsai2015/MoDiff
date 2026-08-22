@@ -299,8 +299,9 @@ def process_dataset_from_csv(csv_path, output_dir, num_windows=10, dataset_name=
     stats = {'total_windows': len(df['time_window'].unique()), 'empty_graphs': 0, 'passed': 0}
 
     # Generate graphs in temporal order
-    for window_id in sorted(df['time_window'].unique()):
-        window_df = df[df['time_window'] == window_id]
+    # groupby 取代逐窗口過濾：原寫法是 O(窗口數 x 總列數)，
+    # 在 20 萬個窗口以上的資料集無法完成。分組與順序與原本相同。
+    for window_id, window_df in df.groupby('time_window', sort=True):
         G = create_snapshot_graph(window_df)
         
         if G.number_of_nodes() == 0:

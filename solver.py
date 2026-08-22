@@ -30,21 +30,32 @@ def orthogo_tensor(x):
 
 def top_k_eigen(adjs_tensor, k=20):
     data_size, n, _ = adjs_tensor.shape
-    
-    # Initialize tensors to store top k eigenvalues and eigenvectors
-    la, u = torch.linalg.eigh(adjs_tensor[0])
-    top_eigenvalues = torch.zeros((data_size, k), dtype=la.dtype, device=adjs_tensor.device)
-    top_eigenvectors = torch.zeros((data_size, n, k), dtype=u.dtype, device=adjs_tensor.device)
-    
+    dev = adjs_tensor.device
+    in_dtype = adjs_tensor.dtype
+
+    # cuSOLVER 對含大量重複特徵值的矩陣不收斂（padding 產生的零列），
+    # 因此在 CPU 上以雙精度計算，再轉回原本的 device 與 dtype。
+    hi = torch.complex128 if in_dtype.is_complex else torch.float64
+    A = adjs_tensor.detach().cpu().to(hi)
+
+    la_dtype = torch.float64 if in_dtype in (torch.complex128, torch.float64) else torch.float32
+
+    top_eigenvalues = torch.zeros((data_size, k), dtype=torch.float64)
+    top_eigenvectors = torch.zeros((data_size, n, k), dtype=hi)
+
     for i in range(data_size):
-        la, u = torch.linalg.eigh(adjs_tensor[i])
-        
-        # Select the top k eigenvalues and corresponding eigenvectors
+        try:
+            la, u = torch.linalg.eigh(A[i])
+        except Exception:
+            la, u = torch.linalg.eigh(A[i] + 1e-10 * torch.eye(n, dtype=hi))
         top_indices = torch.argsort(la, descending=True)[:k]
         top_eigenvalues[i] = la[top_indices]
         top_eigenvectors[i] = u[:, top_indices]
-        if i%32==0: print(f"Compute Top K Eigen: {i}/{data_size}")
-    return top_eigenvalues, top_eigenvectors
+        if i % 32 == 0:
+            print(f"Compute Top K Eigen: {i}/{data_size}")
+
+    return (top_eigenvalues.to(device=dev, dtype=la_dtype),
+            top_eigenvectors.to(device=dev, dtype=in_dtype))
 
 class Predictor(abc.ABC):
   """The abstract class for a predictor algorithm."""

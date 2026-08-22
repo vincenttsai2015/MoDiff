@@ -1,3 +1,4 @@
+import os
 import concurrent.futures
 from functools import partial
 
@@ -84,7 +85,13 @@ def disc(samples1, samples2, kernel, is_parallel=True, *args, **kwargs):
         for i in range(len(samples1)):
             d += kernel(samples1[i], samples2[i], *args, **kwargs)
     else:
-        with concurrent.futures.ProcessPoolExecutor() as executor:
+        # ProcessPoolExecutor 預設用 os.cpu_count()，那是整台機器的核數；
+        # SLURM 只配給我們 --cpus-per-task 個。fork 出上百個行程、每個都要
+        # 複製數十 GB 的父行程，會在 os.fork() 撞 Errno 12。
+        _n = len(os.sched_getaffinity(0)) if hasattr(os, 'sched_getaffinity') \
+            else (os.cpu_count() or 1)
+        _n = max(1, min(_n, int(os.environ.get('MMD_WORKERS', _n))))
+        with concurrent.futures.ProcessPoolExecutor(max_workers=_n) as executor:
             for dist in executor.map(kernel_parallel_worker,
                                      [(s1, samples2, partial(kernel, *args, **kwargs)) for s1 in samples1]):
                 d += dist

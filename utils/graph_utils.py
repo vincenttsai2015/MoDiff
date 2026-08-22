@@ -481,7 +481,13 @@ def graphs_to_MultiD_tensor_rotate(graph_lists, max_node_num):
 
     assert len(graph_lists) == len(transform_type), "Number of angles must match number of graph lists"
     
-    for i in range(len(graph_lists[0])):
+    # V / R / T 三個 split 各自四捨五入，長度不一定相同。用第一個的長度
+    # 迭代在 V 比 T 長時會索引越界，取最短的才安全。
+    n_use = min(len(gl) for gl in graph_lists)
+    if n_use != len(graph_lists[0]):
+        print(f'[rotate] 三個 list 長度 {[len(gl) for gl in graph_lists]}，'
+              f'取最短的 {n_use} 張', flush=True)
+    for i in range(n_use):
         combined_H = np.zeros((max_node_num, max_node_num), dtype=np.complex64)
         
         for graph_list, type in zip(graph_lists, transform_type):
@@ -571,7 +577,13 @@ def graphs_to_adjWnodes_4Comp(graph_lists, max_node_num):
                 
            
     pointer = 0
-    for i in range(len(graph_lists[0])):
+    # V / R / T 三個 split 各自四捨五入，長度不一定相同。用第一個的長度
+    # 迭代在 V 比 T 長時會索引越界，取最短的才安全。
+    n_use = min(len(gl) for gl in graph_lists)
+    if n_use != len(graph_lists[0]):
+        print(f'[rotate] 三個 list 長度 {[len(gl) for gl in graph_lists]}，'
+              f'取最短的 {n_use} 張', flush=True)
+    for i in range(n_use):
         combined_H = np.zeros((max_node_num, max_node_num), dtype=np.complex64)
         
         for graph_list, type in zip(graph_lists, transform_type):
@@ -625,7 +637,13 @@ def graphs_to_adjWnodes_woMotif(graph_lists, max_node_num):
                 
            
     pointer = 0
-    for i in range(len(graph_lists[0])):
+    # V / R / T 三個 split 各自四捨五入，長度不一定相同。用第一個的長度
+    # 迭代在 V 比 T 長時會索引越界，取最短的才安全。
+    n_use = min(len(gl) for gl in graph_lists)
+    if n_use != len(graph_lists[0]):
+        print(f'[rotate] 三個 list 長度 {[len(gl) for gl in graph_lists]}，'
+              f'取最短的 {n_use} 張', flush=True)
+    for i in range(n_use):
         combined_H = np.zeros((max_node_num, max_node_num), dtype=np.complex64)
         
         for graph_list, type in zip(graph_lists, transform_type):
