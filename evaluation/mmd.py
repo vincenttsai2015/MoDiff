@@ -1,4 +1,5 @@
 import os
+import multiprocessing
 import concurrent.futures
 from functools import partial
 
@@ -91,7 +92,14 @@ def disc(samples1, samples2, kernel, is_parallel=True, *args, **kwargs):
         _n = len(os.sched_getaffinity(0)) if hasattr(os, 'sched_getaffinity') \
             else (os.cpu_count() or 1)
         _n = max(1, min(_n, int(os.environ.get('MMD_WORKERS', _n))))
-        with concurrent.futures.ProcessPoolExecutor(max_workers=_n) as executor:
+        # 用 spawn 而不是預設的 fork。這時父行程已經初始化 CUDA，torch 的
+        # OpenMP 與 numpy 的 BLAS 也開了背景執行緒；fork 只複製呼叫端那條，
+        # 其他執行緒持有的鎖永遠不會釋放，子行程一碰就死等，表現是
+        # 子行程 CPU 時間為零、job 掛著不結束。spawn 是全新的直譯器，
+        # 不繼承任何鎖，代價是啟動慢一點。
+        _ctx = multiprocessing.get_context('spawn')
+        with concurrent.futures.ProcessPoolExecutor(
+                max_workers=_n, mp_context=_ctx) as executor:
             for dist in executor.map(kernel_parallel_worker,
                                      [(s1, samples2, partial(kernel, *args, **kwargs)) for s1 in samples1]):
                 d += dist
