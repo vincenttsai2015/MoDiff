@@ -5,6 +5,7 @@
 #   bash check_modiff.sh --submit        把缺的送出去（受 queue 名額限制）
 #   ONLY=wiki_vote bash check_modiff.sh
 #   SEEDS="0 1 2" bash check_modiff.sh
+#   FORCE_ALL=1 bash check_modiff.sh --submit   有 checkpoint 也重訓
 #   LIMIT=10 bash check_modiff.sh --submit
 #
 # 完成的判準是兩個：checkpoint 存在（訓練完），以及取樣 log 裡有 Final Metrics
@@ -17,6 +18,10 @@ cd "$(dirname "$0")"
 
 RUNNER=${RUNNER:-run_modiff_nano4.sh}
 SEEDS=${SEEDS:-0}
+# 有 checkpoint 的預設用 eval 省下重訓。但 utils/predensity.json 是訓練時
+# 寫入、又被 git 追蹤的檔案，git pull 或 reset 會把它還原，那些 key 一消失
+# 取樣就會 KeyError。遇到時用 FORCE_ALL=1 重訓。
+MODE_TRAINED=$([ -n "${FORCE_ALL:-}" ] && echo all || echo eval)
 LIMIT=${LIMIT:-20}
 SUBMIT=0
 [ "$1" = "--submit" ] && SUBMIT=1
@@ -85,7 +90,7 @@ for cfg in $CFGS; do
             # 訓練完了，只缺取樣。用 eval 省下重訓
             N_TRAIN=$((N_TRAIN + 1)); N_MISS=$((N_MISS + 1))
             printf '%-52s 缺: 取樣（有 checkpoint）\n' "$key"
-            MISSING="${MISSING}sbatch --job-name=${run} ${RUNNER} ${ds} ${seed} eval
+            MISSING="${MISSING}sbatch --job-name=${run} ${RUNNER} ${ds} ${seed} ${MODE_TRAINED}
 "
         else
             N_MISS=$((N_MISS + 1))
