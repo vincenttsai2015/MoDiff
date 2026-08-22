@@ -45,8 +45,14 @@ def main():
     args = ap.parse_args()
 
     paths = sorted(glob.glob(os.path.join(args.root, "*", "*.pkl")))
+    # 短檔名 R/V/T.pkl 是指向長檔名的符號連結（取樣階段讀那組）。
+    # os.replace 會把連結換成實體檔案，資料變兩份，所以跳過。
+    n_link = sum(1 for p in paths if os.path.islink(p))
+    paths = [p for p in paths if not os.path.islink(p)]
     if not paths:
         raise SystemExit(f"{args.root} 底下找不到 pkl")
+    if n_link:
+        print(f"跳過 {n_link} 個符號連結")
 
     print(f"{len(paths)} 個檔案")
     total = 0
