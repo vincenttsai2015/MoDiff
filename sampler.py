@@ -182,7 +182,25 @@ class Sampler_G_DiT(object):
             gen_graph_list = gen_graph_list_rewired
 
         assert len(gen_graph_list)==len(test_graph_list)
-        # save_graph_list(os.path.join(*['Sensity', self.config.data.data]) , f"{self.config.ckpt[:]}_{pre_dense}_{str('%.2f'%final_thres)[-2:]}", gen_graph_list)
+
+        # 存成與 DAMNETS 家族一致的結構，才能共用分析工具。
+        # 這裡的 gen_graph_list 是攤平的，每 MODIFF_SEQ_LEN 張切成一條序列。
+        # MODIFF_GEN_DIR 給定輸出根目錄時才寫，預設不寫以免影響既有流程。
+        _gen_root = os.environ.get('MODIFF_GEN_DIR', '')
+        if _gen_root:
+            _T = int(os.environ.get('MODIFF_SEQ_LEN', '32'))
+            _tag = os.environ.get('MODIFF_RUN_TAG', self.config.ckpt)
+            _seqs = [gen_graph_list[i:i + _T]
+                     for i in range(0, len(gen_graph_list) - _T + 1, _T)]
+            _src = [test_graph_list[i:i + _T]
+                    for i in range(0, len(test_graph_list) - _T + 1, _T)]
+            _d = os.path.join(_gen_root, _tag, 'MoDiff')
+            os.makedirs(_d, exist_ok=True)
+            with open(os.path.join(_d, 'sampled_ts.pkl'), 'wb') as _f:
+                pickle.dump(_seqs, _f, protocol=pickle.HIGHEST_PROTOCOL)
+            with open(os.path.join(_d, 'test_graphs.pkl'), 'wb') as _f:
+                pickle.dump(_src, _f, protocol=pickle.HIGHEST_PROTOCOL)
+            print(f'生成序列已存到 {_d}：{len(_seqs)} 條 x {_T} 張', flush=True)
         print("Evaluation By Compund Finish")
 
         methods = ['degree','cluster', 'spectral', 'node_behavior_ks', 'random_walk_ks','pagerank_ks','node_degree_behavior_ks',

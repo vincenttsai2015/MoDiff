@@ -81,6 +81,10 @@ CFG="config/${FOLDER}/${PREFIX}_${SCALE}.yaml"
 
 export MODIFF_RUN_TAG="${RUNNAME}"
 
+# 生成序列存到與 DAMNETS 家族一致的位置，才能共用分析工具。
+# 目錄結構是 <根>/<run 名>/MoDiff/{sampled_ts,test_graphs}.pkl。
+export MODIFF_GEN_DIR="${MODIFF_GEN_DIR:-$HOME/modiff_generated}"
+
 echo "=================================================="
 echo " ${RUNNAME}   scale=${SCALE}"
 echo " base config: ${BASE_CFG}"
