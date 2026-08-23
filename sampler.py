@@ -153,7 +153,26 @@ class Sampler_G_DiT(object):
             
         assert len(gen_adj_list)==len(train_node_list)
         
-        pre_dense_true = json.load(open('utils/predensity.json'))[self.config.data.data + self.config.scale]
+        # predensity.json 是訓練時由 upsert_dense_value 累積寫入的，不進版控——
+        # 內容隨各人跑過哪些組合而不同。純取樣（mode=eval）時如果那個 key 不在，
+        # 就用與 upsert_dense_value 完全相同的算法當場算一次並補寫回去。
+        _pd_path = 'utils/predensity.json'
+        _pd_key = self.config.data.data + self.config.scale
+        try:
+            with open(_pd_path, encoding='utf-8') as _f:
+                _pd = json.load(_f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            _pd = {}
+        if _pd_key not in _pd:
+            from utils.graph_utils import compute_overall_mean_degree
+            _val = round(sum(compute_overall_mean_degree(gl)
+                             for gl in test_graph_lists) - 0.1, 1)
+            _pd[_pd_key] = _val
+            os.makedirs(os.path.dirname(_pd_path) or '.', exist_ok=True)
+            with open(_pd_path, 'w', encoding='utf-8') as _f:
+                json.dump(_pd, _f, indent=2, ensure_ascii=False)
+            print(f'predensity 缺 {_pd_key}，當場算出 {_val} 並補寫回去', flush=True)
+        pre_dense_true = _pd[_pd_key]
         density_scale = getattr(self.config.sampler, "density_scale", 1.0) # 加一個 config 超參數，讓你可以在 YAML 裡指定 density_scale
         pre_dense = density_scale * pre_dense_true
 
