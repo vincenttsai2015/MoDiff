@@ -65,6 +65,10 @@ export MODIFF_RUN_TAG="${RUNNAME}"
 # 生成序列存到與 DAMNETS 家族一致的位置，才能共用分析工具。
 # 目錄結構是 <根>/<run 名>/MoDiff/{sampled_ts,test_graphs}.pkl。
 export MODIFF_GEN_DIR="${MODIFF_GEN_DIR:-$HOME/modiff_generated}"
+# 攤平的生成圖每幾張切成一條序列。資料是 G_k / G_{k+1} 成對餵的，
+# 每條原始序列配對後少一張，所以 16 幀的窗口在這裡是 15。
+# sampler.py 的預設值 32 是舊資料的長度。
+export MODIFF_SEQ_LEN="${MODIFF_SEQ_LEN:-15}"
 
 echo "=================================================="
 echo " ${RUNNAME}   scale=${SCALE}"

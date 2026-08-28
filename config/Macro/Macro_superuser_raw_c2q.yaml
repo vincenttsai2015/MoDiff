@@ -2,7 +2,7 @@ data:
   data: superuser_raw_c2q
   dir: './data/macro/superuser_raw_c2q'
   file1: macro_superuser_raw_c2q
-  file2: macro_superuser_raw_c2q
+  file2: macro_superuser_raw_c2q_next
   batch_size: 32
   test_split: 0.1
   max_node_num: 200

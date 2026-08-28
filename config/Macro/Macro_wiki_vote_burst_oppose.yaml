@@ -2,7 +2,7 @@ data:
   data: wiki_vote_burst_oppose
   dir: './data/macro/wiki_vote_burst_oppose'
   file1: macro_wiki_vote_burst_oppose
-  file2: macro_wiki_vote_burst_oppose
+  file2: macro_wiki_vote_burst_oppose_next
   batch_size: 32
   test_split: 0.1
   max_node_num: 200
