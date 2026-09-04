@@ -227,6 +227,13 @@ class Sampler_G_DiT(object):
         kernels = {'degree':gaussian_emd,
                     'cluster':gaussian_emd,
                     'spectral':gaussian_emd}
+        # MMD 是 O(n²)，superuser 一組有十萬張圖、118 億次兩兩比對，
+        # 而每次比對要解一個 EMD。指標一律由 eval_all_metrics.py 事後統一算，
+        # 生成序列在上面就已經寫出去了，所以預設跳過這一段。
+        if os.environ.get('MODIFF_SKIP_EVAL', '1') == '1':
+            logger.log('Sampling Done: 跳過內建評估（MODIFF_SKIP_EVAL=0 可開啟）')
+            return
+
         whole_mot_graph_list = load_graph_list(os.path.join(self.config.data.dir, file_name_first[:-6], f'{self.config.data.file1}.pkl'))[:len(gen_graph_list)] 
         result_dict = eval_graph_list(whole_mot_graph_list, gen_graph_list, methods=methods, kernels=kernels)
         
