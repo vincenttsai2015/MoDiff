@@ -5,3 +5,7 @@ data/
 # 訓練時由 upsert_dense_value 寫入，各人的內容不同。
 # 被追蹤的話 git pull 會還原，取樣階段就會 KeyError。
 utils/predensity.json
+*.orig
+_eden_stub/
+logs/
+samples/
